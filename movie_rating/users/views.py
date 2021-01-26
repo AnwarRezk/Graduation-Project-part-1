@@ -14,6 +14,7 @@ def LoginPage(request):
     if request.user.is_authenticated:
         return redirect('/')
     else:
+        context = {}
         if request.method == "POST":
             username = request.POST.get('username')
             password = request.POST.get('password')
@@ -23,9 +24,9 @@ def LoginPage(request):
                 login(request, user)
                 return redirect('/')
             else: #something went wrong
+                context = {'username': username}
                 messages.info(request,'Username/Password is incorrect')
 
-        context = {}
         return render(request, 'users/login.html', context)
 
 def RegisterPage(request):
