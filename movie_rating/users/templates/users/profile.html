@@ -1,11 +1,20 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 
-{% block head %}
+{% block title %}
     Profile
 {% endblock %}
 
+{% block head %}
+    <!-- Include jQuery and flickity package for carousel slider -->
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+{% endblock %}
+
+
 {% block content %}
+
     <div class="content-section">
         <div class="media">
             <img class="rounded-circle account-img" src="{{ user.profile.image.url }}" alt="image">
@@ -27,4 +36,42 @@
             </div>
         </form>
     </div>
+
+    <div class = "content-section ratings" >
+        <legend class="border-bottom mb-4">Your Rated Movies</legend>
+        <!-- The posters will be dummy for now -->
+        <div class="carousel-slider">
+            <div class="carousel-cell">
+                <img class="carousel-img" src="https://cdn.vox-cdn.com/thumbor/w4zoPhL-LTUszPWHAUOeCmyS07w=/366x80:1263x685/1200x800/filters:focal(634x212:896x474)/cdn.vox-cdn.com/uploads/chorus_image/image/67233661/Ef4Do0cWkAEyy1i.0.jpeg" alt="movies">
+            </div>
+            <div class="carousel-cell">
+                <img class="carousel-img" src="https://cdn.vox-cdn.com/thumbor/w4zoPhL-LTUszPWHAUOeCmyS07w=/366x80:1263x685/1200x800/filters:focal(634x212:896x474)/cdn.vox-cdn.com/uploads/chorus_image/image/67233661/Ef4Do0cWkAEyy1i.0.jpeg" alt="movies">
+            </div>
+            <div class="carousel-cell">
+                <img class="carousel-img" src="https://cdn.vox-cdn.com/thumbor/w4zoPhL-LTUszPWHAUOeCmyS07w=/366x80:1263x685/1200x800/filters:focal(634x212:896x474)/cdn.vox-cdn.com/uploads/chorus_image/image/67233661/Ef4Do0cWkAEyy1i.0.jpeg" alt="movies">
+            </div>
+            <div class="carousel-cell">
+                <img class="carousel-img" src="https://cdn.vox-cdn.com/thumbor/w4zoPhL-LTUszPWHAUOeCmyS07w=/366x80:1263x685/1200x800/filters:focal(634x212:896x474)/cdn.vox-cdn.com/uploads/chorus_image/image/67233661/Ef4Do0cWkAEyy1i.0.jpeg" alt="movies">
+            </div>
+            <div class="carousel-cell">
+                <img class="carousel-img" src="https://cdn.vox-cdn.com/thumbor/w4zoPhL-LTUszPWHAUOeCmyS07w=/366x80:1263x685/1200x800/filters:focal(634x212:896x474)/cdn.vox-cdn.com/uploads/chorus_image/image/67233661/Ef4Do0cWkAEyy1i.0.jpeg" alt="movies">
+            </div>
+            <div class="carousel-cell">
+                <img class="carousel-img" src="https://cdn.vox-cdn.com/thumbor/w4zoPhL-LTUszPWHAUOeCmyS07w=/366x80:1263x685/1200x800/filters:focal(634x212:896x474)/cdn.vox-cdn.com/uploads/chorus_image/image/67233661/Ef4Do0cWkAEyy1i.0.jpeg" alt="movies">
+            </div>
+        </div>
+    </div>
+    <!-- Script for triggering the flickity package -->
+    <script>
+        (function($){
+            $(document).ready(function(){
+                $('.carousel-slider').flickity({
+                    cellAlign: 'left',
+                    wrapAround: true,
+                    fade: true
+                });
+            });
+        })(jQuery)
+    </script>
+
 {% endblock %}

@@ -15,6 +15,12 @@ body{
     border-radius: 3px;
     margin-top: 55px;
 }
+
+.ratings{
+    margin-top: 0;
+    margin-bottom: 60px;
+}
+
 .account-img {
     height: 125px;
     width: 125px;
@@ -43,5 +49,33 @@ nav{
     /*background-color: rgb(13, 12, 12);*/
     background-color: rgb(28, 28, 27);
     margin-bottom: 20px;
+}
+
+.carousel-img{
+    max-width: 100%;
+    height: auto;
+}
+
+.carousel-cell{
+    width: 30%;
+    padding: 1rem;
+}
+
+@media(max-width:700px){
+    .carousel-cell{
+        width: 33.33%
+    }
+}
+
+@media(max-width:600px){
+    .carousel-cell{
+        width: 50%
+    }
+}
+
+@media(max-width:500px){
+    .carousel-cell{
+        width: 100%
+    }
 }
 
