@@ -14,18 +14,29 @@
     {% block head  %}{% endblock %}
 </head>
 <body>
-<nav class="navbar navbar-dark navbar-expand-lg fixed-top navbar-custom">
-    <div class="container"><a class="navbar-brand" href="{% url 'home' %}">Mega Movies</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navbarResponsive"><span class="navbar-toggler-icon"></span></button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="nav navbar-nav ml-auto">
-                <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Log Out</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'profile' %}">Profile</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
+    <header class="site-header">
+        <nav class="navbar navbar-dark navbar-expand-lg fixed-top navbar-custom">
+            <div class="container"><a class="navbar-brand" href="{% url 'home' %}">Mega Movies</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navbarResponsive"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Log Out</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'profile' %}">Profile</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    {% block content %}{% endblock %}
 
-{% block content %}
-{% endblock %}
+
+{#    {% include 'users/messages.html' %}#}
+{#    <script>#}
+{#        setTimeout(function(){#}
+{#            if($('#msg').length > 0){#}
+{#                $('#msg').remove();#}
+{#            }#}
+{#        }, 2000)#}
+{#    </script>#}
+
 </body>
 </html>

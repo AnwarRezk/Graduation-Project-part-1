@@ -63,19 +63,18 @@ nav{
 
 @media(max-width:700px){
     .carousel-cell{
-        width: 33.33%
+        width: 33.33%;
     }
 }
 
 @media(max-width:600px){
     .carousel-cell{
-        width: 50%
+        width: 50%;
     }
 }
 
 @media(max-width:500px){
     .carousel-cell{
-        width: 100%
+        width: 100%;
     }
 }
-
