@@ -20,7 +20,7 @@
                         {% csrf_token %}
                         <div class="form-input">
                             <span><i class="fas fa-user"></i></span>
-                            <input type="text" name="username" placeholder="Username" class="form-control" tabindex="10" required>
+                            <input type="text" name="username" placeholder="Username" value="{{ username }}" class="form-control" tabindex="10" required>
                         </div>
                         <div class="form-input">
                             <span><i class="fas fa-key"></i></span>
