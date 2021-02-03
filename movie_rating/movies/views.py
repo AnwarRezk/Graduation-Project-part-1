@@ -10,12 +10,13 @@ from .models import *
 
 @login_required
 def home(request):
+    current_user = request.user
+    user_rated_movies = [rating.movie for rating in current_user.user_rating_set.all()]
+    
     if request.method == 'POST':
-        current_user = request.user
-        user_ratings_movies = [rating.movie for rating in current_user.user_rating_set.all()]
         
         # Check if the user re-rated a movie
-        for movie in user_ratings_movies:
+        for movie in user_rated_movies:
             if movie.name_eg in request.POST:
                 User_Rating.objects.get(user=current_user, movie=movie).delete()
         
@@ -37,6 +38,7 @@ def home(request):
         popular_movies = Movie.objects.all().order_by('-final_rating')
         
         context = {
+            'user_rated_movies': user_rated_movies,
             'latest_movies': latest_movies,
             'popular_movies': popular_movies
         }
@@ -48,14 +50,21 @@ class SearchView(LoginRequiredMixin, TemplateView):
 
 class SearchResultsView(LoginRequiredMixin, ListView):
     model = Movie
-    template_name = 'movies/search_results'
+    template_name = 'movies/search_results.html'
+    
+    def get_context_data(self,*args, **kwargs):
+        current_user = self.request.user
+        user_rating_movies = [[rating.movie, rating.rating] for rating in current_user.user_rating_set.all()]
+        context = super(SearchResultsView, self).get_context_data(*args,**kwargs)
+        context['user_rating_movies'] = user_rating_movies
+        return context
     
     def post(self, request, *args, **kwargs):
         current_user = request.user
-        user_ratings_movies = [rating.movie for rating in current_user.user_rating_set.all()]
+        user_rated_movies = [rating.movie for rating in current_user.user_rating_set.all()]
         
         # Check if the user re-rated a movie
-        for movie in user_ratings_movies:
+        for movie in user_rated_movies:
             if movie.name_eg in request.POST:
                 User_Rating.objects.get(user=current_user, movie=movie).delete()
         

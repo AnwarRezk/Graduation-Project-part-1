@@ -58,7 +58,6 @@ def profile(request):
         
         if u_form.is_valid and p_form.is_valid:
             u_form.save()
-            print(request.POST)
             if request.POST.get('password'):
                 current_user.set_password(request.POST.get('password'))
                 current_user.save()
