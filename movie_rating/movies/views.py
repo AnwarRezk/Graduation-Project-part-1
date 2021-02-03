@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.views.generic import TemplateView, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from .models import *
 
 # Create your views here.
@@ -20,14 +21,14 @@ def home(request):
         
         # Save the ratings to the database
         for data in request.POST:
-            if request.POST.get(data) == 0: # User un-rated a movie
+            if request.POST.get(data) == 0: # An un-rated movie
                 continue
             
             movie = Movie.objects.get(name_eg=data)
             rating = User_Rating(user=current_user, movie=movie, rating=request.POST.get(data))
             rating.save()
         
-        messages.success(request, 'Your ratings have been saved!') 
+        messages.success(request, 'Your ratings have been saved!')
         return redirect('home')
         
     else:
@@ -46,8 +47,49 @@ class SearchView(LoginRequiredMixin, TemplateView):
     template_name = 'movies/search.html'
 
 class SearchResultsView(LoginRequiredMixin, ListView):
-    def post(self, request, *args, **kwargs):
-        pass
+    model = Movie
+    template_name = 'movies/search_results'
     
-    def get(self, request, *args, **kwargs):
-        pass
+    def post(self, request, *args, **kwargs):
+        current_user = request.user
+        user_ratings_movies = [rating.movie for rating in current_user.user_rating_set.all()]
+        
+        # Check if the user re-rated a movie
+        for movie in user_ratings_movies:
+            if movie.name_eg in request.POST:
+                User_Rating.objects.get(user=current_user, movie=movie).delete()
+        
+        # Save the ratings to the database
+        for data in request.POST:
+            if request.POST.get(data) == 0: # An un-rated movie
+                continue
+            
+            movie = Movie.objects.get(name_eg=data)
+            rating = User_Rating(user=current_user, movie=movie, rating=request.POST.get(data))
+            rating.save()
+        
+        messages.success(request, 'Your ratings have been saved!')
+        return redirect('home')
+    
+    def get_queryset(self):
+        q = Q()
+        
+        for filtr in self.request.GET:
+            if filtr == "movie":
+                q &= (Q(name_eg__icontains=self.request.GET.get(filtr)) | Q(name_ar__icontains=self.request.GET.get(filtr)))
+                
+            elif filtr == "actors":
+                if ',' in self.request.GET.get(filtr):
+                    actors = self.request.GET.get(filtr).split(',')
+                    
+                else:
+                    actors = self.request.GET.get(filtr).split(' ')
+                    
+                for actor in actors:
+                    q &= (Q(actors_name_eg__icontains=actor) | Q(actors_name_ar__icontains=actor))
+            
+            else:
+                if self.request.GET.get(filtr) == "on":
+                    q &= Q(genres_name_eg__icontains=filtr)
+        
+        return Movie.objects.filter(q)
