@@ -18,7 +18,7 @@ class Movie(models.Model):
 	poster_url = models.URLField(blank=True)
 
 	# include rating or imdb calcuated rating | use this or the one from egybest
-	final_rating = models.FloatField(default=0,validators=[MinValueValidator(0), MaxValueValidator(10)])
+	final_rating = models.FloatField(default=0,validators=[MinValueValidator(0), MaxValueValidator(5)])
 
 	def __str__(self):
 		return f"{self.name_eg} | {self.name_ar}"
@@ -38,7 +38,7 @@ class MovieInfo(models.Model):
 	country = models.CharField(max_length=40,blank=True)
 
 	# gatherd from egybest
-	rating = models.FloatField(default=0,validators=[MinValueValidator(0), MaxValueValidator(10)])
+	rating = models.FloatField(default=0,validators=[MinValueValidator(0), MaxValueValidator(5)])
 	rating_count = models.IntegerField(default=0)
 
 	# rating calculated using imdb formula
