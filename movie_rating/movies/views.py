@@ -11,7 +11,8 @@ from .models import *
 @login_required
 def home(request):
     current_user = request.user
-    user_rated_movies = [rating.movie for rating in current_user.user_rating_set.all()]
+    user_ratings = current_user.user_rating_set.all()
+    user_rated_movies = [rating.movie for rating in user_ratings]
     
     if request.method == 'POST':
         
@@ -34,11 +35,24 @@ def home(request):
         
     else:
         movies_info = MovieInfo.objects.all().order_by('-date')[:20]
-        latest_movies = [info.movie for info in movies_info]
-        popular_movies = Movie.objects.all().order_by('-final_rating')
+        l_m = [info.movie for info in movies_info]
+        p_m = list(Movie.objects.all().order_by('-final_rating')[:20])
+        
+        latest_movies = []
+        popular_movies = []
+        
+        # Remove the duplicates between the latest movies and the rated movies
+        for movie in l_m:
+            if movie not in user_rated_movies:
+                latest_movies.insert(len(latest_movies), movie)
+        
+        # Remove the duplicates between the popular movies and the latest movies, and the rated movies
+        for movie in p_m:
+            if (movie not in user_rated_movies) and (movie not in latest_movies):
+                popular_movies.insert(len(popular_movies), movie)
         
         context = {
-            'user_rated_movies': user_rated_movies,
+            'user_ratings': user_ratings,
             'latest_movies': latest_movies,
             'popular_movies': popular_movies
         }
@@ -54,9 +68,12 @@ class SearchResultsView(LoginRequiredMixin, ListView):
     
     def get_context_data(self,*args, **kwargs):
         current_user = self.request.user
-        user_rating_movies = [[rating.movie, rating.rating] for rating in current_user.user_rating_set.all()]
+        user_ratings = current_user.user_rating_set.all()
+        rated_movies = [rating.movie for rating in user_ratings]
+        movies_ratings = [rating.rating for rating in user_ratings]
         context = super(SearchResultsView, self).get_context_data(*args,**kwargs)
-        context['user_rating_movies'] = user_rating_movies
+        context['rated_movies'] = rated_movies
+        context['movies_ratings'] = movies_ratings
         return context
     
     def post(self, request, *args, **kwargs):
