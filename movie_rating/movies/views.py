@@ -71,9 +71,20 @@ class SearchResultsView(LoginRequiredMixin, ListView):
         user_ratings = current_user.user_rating_set.all()
         rated_movies = [rating.movie for rating in user_ratings]
         movies_ratings = [rating.rating for rating in user_ratings]
+        search_results = []
         context = super(SearchResultsView, self).get_context_data(*args,**kwargs)
-        context['rated_movies'] = rated_movies
-        context['movies_ratings'] = movies_ratings
+        
+        for movie in context['object_list']:
+            if movie in rated_movies:
+                rating = movies_ratings[rated_movies.index(movie)]
+
+            else:
+                rating = 0
+                
+            search_results.insert(len(search_results), [movie, rating])
+        
+        context['search_results'] = search_results
+        
         return context
     
     def post(self, request, *args, **kwargs):
