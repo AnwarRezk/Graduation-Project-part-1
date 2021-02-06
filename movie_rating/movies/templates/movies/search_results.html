@@ -12,6 +12,7 @@
         {% else %}
             <form method="POST">
                 {% csrf_token %}
+                <button class="btn btn-outline-info" type="submit">Update</button>
                 <div class="grid-wrapper">
                     {% for result in search_results %}
                         <div class="card-view">
@@ -22,7 +23,11 @@
                                     <a href="#" class="card-ref">
                                         <h3 class="card-movie-title">{{result.0.name_eg }}</h3>
                                     </a>
-                                    <div class="star-ratings"><span class="rating-value">-</span>/5</div>
+                                    {% if result.1 != 0 %}
+                                        <div class="star-ratings"><span class="rating-value">{{ result.1 }}</span>/5</div>
+                                    {% else %}
+                                        <div class="star-ratings"><span class="rating-value">0</span>/5</div>
+                                    {% endif %}
                                 </div>
                                 <div class="card-movie-info">
                                     <div class="movie-genres">
@@ -66,7 +71,7 @@
     </main>
 
     <script>
-        let i = document.querySelectorAll('input'),
+        let i = document.querySelectorAll('.range_star'),
             o = document.querySelectorAll('.textInput'),
             r = document.querySelectorAll('.rating-value');
         for(let j = 0; j< i.length; j++){

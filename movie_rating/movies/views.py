@@ -23,11 +23,14 @@ def home(request):
         
         # Save the ratings to the database
         for data in request.POST:
-            if request.POST.get(data) == 0: # An un-rated movie
+            if data == "csrfmiddlewaretoken":
+                continue
+            
+            if request.POST.get(data) == '0': # An un-rated movie
                 continue
             
             movie = Movie.objects.get(name_eg=data)
-            rating = User_Rating(user=current_user, movie=movie, rating=request.POST.get(data))
+            rating = User_Rating(user=current_user, movie=movie, rating=float(request.POST.get(data)))
             rating.save()
         
         messages.success(request, 'Your ratings have been saved!')
@@ -98,11 +101,14 @@ class SearchResultsView(LoginRequiredMixin, ListView):
         
         # Save the ratings to the database
         for data in request.POST:
-            if request.POST.get(data) == 0: # An un-rated movie
+            if data == "csrfmiddlewaretoken":
+                continue
+            
+            if request.POST.get(data) == '0': # An un-rated movie
                 continue
             
             movie = Movie.objects.get(name_eg=data)
-            rating = User_Rating(user=current_user, movie=movie, rating=request.POST.get(data))
+            rating = User_Rating(user=current_user, movie=movie, rating=float(request.POST.get(data)))
             rating.save()
         
         messages.success(request, 'Your ratings have been saved!')
