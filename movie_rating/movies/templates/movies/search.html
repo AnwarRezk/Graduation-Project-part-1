@@ -3,3 +3,148 @@
 {% block title %}
     Search
 {% endblock %}
+
+{% block content %}
+    <div class="content-section">
+        <form method="GET" action="{% url 'search_results' %}">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Search</legend>
+                <span class="Movie">Movie</span>
+                <br>
+                <input type = "text" name="movie">
+                <br>
+                <span class="Actor">Actor</span>
+                <br>
+                <input type = "text" name="actor">
+                <br>
+            </fieldset>
+            <div class="form-group">
+                <div class="check-holder">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexDrama" name="drama">
+                        <label class="form-check-label" for="flexDrama">
+                            Drama
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexAction" name="action">
+                        <label class="form-check-label" for="flexDrama">
+                            Action
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexComedy" name="comedy">
+                        <label class="form-check-label" for="flexComedy">
+                            Comedy
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexRomantic" name="romantic">
+                        <label class="form-check-label" for="flexRomantic">
+                            Romantic
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexExcitement" name="excitement">
+                        <label class="form-check-label" for="flexExcitement">
+                            Excitement
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCrime" name="crime">
+                        <label class="form-check-label" for="flexCrime">
+                            Crime
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexMusic" name="music">
+                        <label class="form-check-label" for="flexMusic">
+                            Music
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexAdventure" name="adventure">
+                        <label class="form-check-label" for="flexAdventure">
+                            Adventure
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexFamilial" name="familial">
+                        <label class="form-check-label" for="flexFamilial">
+                            Familial
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexFiction" name="fiction">
+                        <label class="form-check-label" for="flexFiction">
+                            Fiction
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexHistory" name="history">
+                        <label class="form-check-label" for="flexHistory">
+                            History
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexHorror" name="horror">
+                        <label class="form-check-label" for="flexHorror">
+                            Horror
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCV" name="cv">
+                        <label class="form-check-label" for="flexCV">
+                            CV
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexAmbiguity" name="ambiguity">
+                        <label class="form-check-label" for="flexAmbiguity">
+                            Ambiguity
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexWar" name="war">
+                        <label class="form-check-label" for="flexWar">
+                            War
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexSport" name="sport">
+                        <label class="form-check-label" for="flexSport">
+                            Sport
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexDocumentary" name="documentary">
+                        <label class="form-check-label" for="flexDocumentary">
+                            Documentary
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexShort" name="short">
+                        <label class="form-check-label" for="flexShort">
+                            Short
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexAnimation" name="animation">
+                        <label class="form-check-label" for="flexAnimation">
+                            Animation
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexOld" name="old">
+                        <label class="form-check-label" for="flexOld">
+                            Old
+                        </label>
+                    </div>
+                </div>
+                <button class="btn btn-outline-info" type="submit">Search</button>
+
+            </div>
+        </form>
+    </div>
+{% endblock %}

@@ -1,5 +1,83 @@
-{% extends 'base.html' %}
+{{% extends 'base.html' %}
 
 {% block title %}
     Search Results
+{% endblock %}
+
+{% block content %}
+    <main class="container search_posters">
+        <legend class="border-bottom mb-4">Search Results</legend>
+        {% if search_results|length == 0 %}
+            <h3 class="no-results">No Results Found</h3>
+        {% else %}
+            <form method="POST">
+                {% csrf_token %}
+                <div class="grid-wrapper">
+                    {% for result in search_results %}
+                        <div class="card-view">
+                            <div class="card-header" style="background: url({{ result.0.poster_url }}); background-size: cover;">
+                            </div>
+                            <div class="card-movie-content">
+                                <div class="card-movie-content-head">
+                                    <a href="#" class="card-ref">
+                                        <h3 class="card-movie-title">{{result.0.name_eg }}</h3>
+                                    </a>
+                                    <div class="star-ratings"><span class="rating-value">-</span>/5</div>
+                                </div>
+                                <div class="card-movie-info">
+                                    <div class="movie-genres">
+                                        <label>Genres</label>
+                                        <span>{{ result.0.genres_name_eg }}</span>
+                                        <label>Rate</label>
+                                        <fieldset>
+                                            <input type="range" class="range_star" name="{{ result.0.name_eg }}" min="0" max="5" step="0.5" value="{{ result.1 }}">
+                                            <output class="textInput"></output>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    {% endfor %}
+                </div>
+            </form>
+        {% endif %}
+
+        <!-- Implement Pagination -->
+        {% if is_paginated %}
+            {% if page_obj.has_previous %}
+                <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+                <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+                {% if num == page_obj.number %}
+                    <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                    <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+                <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+                <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+            {% endif %}
+        {% endif %}
+    </main>
+
+    <script>
+        let i = document.querySelectorAll('input'),
+            o = document.querySelectorAll('.textInput'),
+            r = document.querySelectorAll('.rating-value');
+        for(let j = 0; j< i.length; j++){
+            o[j].innerHTML = i[j].value;
+            r[j].innerHTML = i[j].value;
+
+            i[j].addEventListener('input', function () {
+                o[j].innerHTML = i[j].value;
+                r[j].innerHTML = i[j].value;
+            }, false);
+        }
+    </script>
+
 {% endblock %}

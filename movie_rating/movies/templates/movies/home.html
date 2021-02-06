@@ -12,164 +12,160 @@
     <style>
         body{padding:55px 0;}
         .ratings{margin-bottom:10px;}
+        .flickity-page-dots {bottom: -22px;}
+        .flickity-page-dots .dot {
+            height: 4px;
+            width: 40px;
+            margin: 0;
+            border-radius: 0;
+        }
     </style>
 {% endblock %}
 
-{#{% block form %}#}
-{#    <form class="form-inline my-2 my-lg-0 ml-auto">#}
-{#        <input class="form-control" type="search" placeholder="Search" aria-label="Search">#}
-{#        <button class="btn btn-outline-white btn-md my-2 my-sm-0 ml-3" type="submit">Search</button>#}
-{#    </form>#}
-{#{% endblock %}#}
-
 {% block content %}
     <div class="container-fluid">
-        <div class = "content-section ratings" >
-            <legend class="border-bottom mb-4">Latest Movies</legend>
-            <!-- The posters will be dummy for now -->
-            <div class="carousel-slider">
+        <form method="POST">
+        {% csrf_token %}
+            <div class = "content-section ratings" >
+                <legend class="border-bottom mb-4">Latest Movies</legend>
+                <div class="carousel-slider">
 
-                <div class="carousel-cell">
-                    <div class="card" style="width: 18rem;">
-                        <img class="card-img-top" src="https://cdn.vox-cdn.com/thumbor/w4zoPhL-LTUszPWHAUOeCmyS07w=/366x80:1263x685/1200x800/filters:focal(634x212:896x474)/cdn.vox-cdn.com/uploads/chorus_image/image/67233661/Ef4Do0cWkAEyy1i.0.jpeg" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-                    </div>
-                </div>
+                    {% for latest_movie in latest_movies %}
 
-                <div class="carousel-cell">
-                    <div class="card" style="width: 18rem;">
-                        <img class="card-img-top" src="https://cdn.vox-cdn.com/thumbor/w4zoPhL-LTUszPWHAUOeCmyS07w=/366x80:1263x685/1200x800/filters:focal(634x212:896x474)/cdn.vox-cdn.com/uploads/chorus_image/image/67233661/Ef4Do0cWkAEyy1i.0.jpeg" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <div class="carousel-cell">
+
+                            <div class="card-view">
+                                <div class="card-header" style="background: url({{ latest_movie.poster_url }}); background-size: cover;">
+                                </div>
+                                <div class="card-movie-content">
+                                    <div class="card-movie-content-head">
+                                        <a href="#" class="card-ref">
+                                            <h3 class="card-movie-title">{{latest_movie.name_eg }}</h3>
+                                        </a>
+                                        <div class="star-ratings"><span class="rating-value">-</span>/5</div>
+                                    </div>
+                                    <div class="card-movie-info">
+                                        <div class="movie-genres">
+                                            <label>Genres</label>
+                                            <span>{{ latest_movie.genres_name_eg }}</span>
+                                            <label>Rate</label>
+                                            <fieldset>
+                                                <input type="range" class="range_star" name="{{ latest_movie.name_eg }}" min="0" max="5" step="0.5" value="0">
+                                                <output class="textInput"></output>
+                                            </fieldset>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
-                    </div>
-                </div>
-                <div class="carousel-cell">
-                    <div class="card" style="width: 18rem;">
-                        <img class="card-img-top" src="https://cdn.vox-cdn.com/thumbor/w4zoPhL-LTUszPWHAUOeCmyS07w=/366x80:1263x685/1200x800/filters:focal(634x212:896x474)/cdn.vox-cdn.com/uploads/chorus_image/image/67233661/Ef4Do0cWkAEyy1i.0.jpeg" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-cell">
-                    <div class="card" style="width: 18rem;">
-                        <img class="card-img-top" src="https://cdn.vox-cdn.com/thumbor/w4zoPhL-LTUszPWHAUOeCmyS07w=/366x80:1263x685/1200x800/filters:focal(634x212:896x474)/cdn.vox-cdn.com/uploads/chorus_image/image/67233661/Ef4Do0cWkAEyy1i.0.jpeg" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-cell">
-                    <div class="card" style="width: 18rem;">
-                        <img class="card-img-top" src="https://cdn.vox-cdn.com/thumbor/w4zoPhL-LTUszPWHAUOeCmyS07w=/366x80:1263x685/1200x800/filters:focal(634x212:896x474)/cdn.vox-cdn.com/uploads/chorus_image/image/67233661/Ef4Do0cWkAEyy1i.0.jpeg" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-cell">
-                    <div class="card" style="width: 18rem;">
-                        <img class="card-img-top" src="https://cdn.vox-cdn.com/thumbor/w4zoPhL-LTUszPWHAUOeCmyS07w=/366x80:1263x685/1200x800/filters:focal(634x212:896x474)/cdn.vox-cdn.com/uploads/chorus_image/image/67233661/Ef4Do0cWkAEyy1i.0.jpeg" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
-        </div>
 
-        <div class = "content-section ratings" >
-            <legend class="border-bottom mb-4">Popular Movies</legend>
-            <!-- The posters will be dummy for now -->
-            <div class="carousel-slider">
-                <div class="carousel-cell">
-                    <div class="card" style="width: 18rem;">
-                        <img class="card-img-top" src="https://cdn.vox-cdn.com/thumbor/w4zoPhL-LTUszPWHAUOeCmyS07w=/366x80:1263x685/1200x800/filters:focal(634x212:896x474)/cdn.vox-cdn.com/uploads/chorus_image/image/67233661/Ef4Do0cWkAEyy1i.0.jpeg" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <div class = "content-section ratings" >
+                <legend class="border-bottom mb-4">Popular Movies</legend>
+                <!-- The posters will be dummy for now -->
+                <div class="carousel-slider">
+                    {% for popular_movie in popular_movies %}
+                        <div class="carousel-cell">
+
+                            <div class="card-view">
+                                <div class="card-header" style="background: url({{ popular_movie.poster_url }}); background-size: cover;">
+                                </div>
+                                <div class="card-movie-content">
+                                    <div class="card-movie-content-head">
+                                        <a href="#" class="card-ref">
+                                            <h3 class="card-movie-title">{{popular_movie.name_eg }}</h3>
+                                        </a>
+                                        <div class="star-ratings"><span class="rating-value">-</span>/5</div>
+                                    </div>
+                                    <div class="card-movie-info">
+                                        <div class="movie-genres">
+                                            <label>Genres</label>
+                                            <span>{{ popular_movie.genres_name_eg }}</span>
+                                            <label>Rate</label>
+                                            <fieldset>
+                                                <input type="range" class="range_star" name="{{ popular_movie.name_eg }}" min="0" max="5" step="0.5" value="0">
+                                                <output class="textInput"></output>
+                                            </fieldset>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
-                    </div>
-                </div>
-                <div class="carousel-cell">
-                    <div class="card" style="width: 18rem;">
-                        <img class="card-img-top" src="https://cdn.vox-cdn.com/thumbor/w4zoPhL-LTUszPWHAUOeCmyS07w=/366x80:1263x685/1200x800/filters:focal(634x212:896x474)/cdn.vox-cdn.com/uploads/chorus_image/image/67233661/Ef4Do0cWkAEyy1i.0.jpeg" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-cell">
-                    <div class="card" style="width: 18rem;">
-                        <img class="card-img-top" src="https://cdn.vox-cdn.com/thumbor/w4zoPhL-LTUszPWHAUOeCmyS07w=/366x80:1263x685/1200x800/filters:focal(634x212:896x474)/cdn.vox-cdn.com/uploads/chorus_image/image/67233661/Ef4Do0cWkAEyy1i.0.jpeg" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-cell">
-                    <div class="card" style="width: 18rem;">
-                        <img class="card-img-top" src="https://cdn.vox-cdn.com/thumbor/w4zoPhL-LTUszPWHAUOeCmyS07w=/366x80:1263x685/1200x800/filters:focal(634x212:896x474)/cdn.vox-cdn.com/uploads/chorus_image/image/67233661/Ef4Do0cWkAEyy1i.0.jpeg" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-cell">
-                    <div class="card" style="width: 18rem;">
-                        <img class="card-img-top" src="https://cdn.vox-cdn.com/thumbor/w4zoPhL-LTUszPWHAUOeCmyS07w=/366x80:1263x685/1200x800/filters:focal(634x212:896x474)/cdn.vox-cdn.com/uploads/chorus_image/image/67233661/Ef4Do0cWkAEyy1i.0.jpeg" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-cell">
-                    <div class="card" style="width: 18rem;">
-                        <img class="card-img-top" src="https://cdn.vox-cdn.com/thumbor/w4zoPhL-LTUszPWHAUOeCmyS07w=/366x80:1263x685/1200x800/filters:focal(634x212:896x474)/cdn.vox-cdn.com/uploads/chorus_image/image/67233661/Ef4Do0cWkAEyy1i.0.jpeg" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
-        </div>
+
+
+            <div class = "content-section ratings" >
+                <legend class="border-bottom mb-4">User Rated Movies</legend>
+                {% if user_ratings|length == 0 %}
+                    <h3 class="no-rating">You have no rated movies yet.</h3>
+                {% else %}
+                    <div class="carousel-slider">
+                    {% for user_rating in user_ratings %}
+                        <div class="carousel-cell">
+
+                        <div class="card-view">
+                            <div class="card-header" style="background: url({{ user_rating.movie.poster_url }}); background-size: cover;">
+                            </div>
+                            <div class="card-movie-content">
+                                <div class="card-movie-content-head">
+                                    <a href="#" class="card-ref">
+                                        <h3 class="card-movie-title">{{user_rating.movie.name_eg }}</h3>
+                                    </a>
+                                    <div class="star-ratings"><span class="rating-value">-</span>/5</div>
+                                </div>
+                                <div class="card-movie-info">
+                                    <div class="movie-genres">
+                                        <label>Genres</label>
+                                        <span>{{user_rating.movie.genres_name_eg }}</span>
+                                        <label>Rate</label>
+                                        <fieldset>
+                                            <input type="range" class="range_star" name="{{ user_rating.movie.name_eg }}" min="0" max="5" step="0.5" value="{{ user_rating.rating }}">
+                                            <output class="textInput"></output>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    {% endfor %}
+                </div>
+                {% endif %}
+                </div>
+            </div>
+        <button type="submit" class="btn btn-success" value ="Rate">Rate</button>
+        </form>
     </div>
-    <!-- Script for triggering the flickity package -->
-    <script>
-        (function($){
-            $(document).ready(function(){
-                $('.carousel-slider').flickity({
-                    cellAlign: 'left',
-                    wrapAround: true,
-                    fade: true
+        <!-- Script for triggering the flickity package -->
+        <script>
+            (function($){
+                $(document).ready(function(){
+                    $('.carousel-slider').flickity({
+                        cellAlign: 'left',
+                        wrapAround: true,
+                        fade: true
+                    });
                 });
-            });
-        })(jQuery)
-    </script>
+            })(jQuery)
+
+            let i = document.querySelectorAll('.range_star'),
+                o = document.querySelectorAll('.textInput'),
+                r = document.querySelectorAll('.rating-value');
+            for(let j = 0; j< i.length; j++){
+                o[j].innerHTML = i[j].value;
+                r[j].innerHTML = i[j].value;
+
+                i[j].addEventListener('input', function () {
+                    o[j].innerHTML = i[j].value;
+                    r[j].innerHTML = i[j].value;
+                }, false);
+            }
+        </script>
 {% endblock %}

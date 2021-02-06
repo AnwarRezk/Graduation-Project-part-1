@@ -72,7 +72,7 @@ class SearchResultsView(LoginRequiredMixin, ListView):
         rated_movies = [rating.movie for rating in user_ratings]
         movies_ratings = [rating.rating for rating in user_ratings]
         search_results = []
-        context = super(SearchResultsView, self).get_context_data(*args,**kwargs)
+        context = super(SearchResultsView, self).get_context_data(*args, **kwargs)
         
         for movie in context['object_list']:
             if movie in rated_movies:

@@ -43,27 +43,19 @@
     <div class = "content-section ratings" >
         <legend class="border-bottom mb-4">Your Rated Movies</legend>
         <!-- The posters will be dummy for now -->
-        <div class="carousel-slider">
-            <div class="carousel-cell">
-                <img class="carousel-img" src="https://cdn.vox-cdn.com/thumbor/w4zoPhL-LTUszPWHAUOeCmyS07w=/366x80:1263x685/1200x800/filters:focal(634x212:896x474)/cdn.vox-cdn.com/uploads/chorus_image/image/67233661/Ef4Do0cWkAEyy1i.0.jpeg" alt="movies">
+        {% if user_ratings|length == 0 %}
+            <h4>No Rated Movies Yet!</h4>
+        {% else %}
+            <div class="carousel-slider">
+                {% for user_rating in user_rating %}
+                    <div class="carousel-cell">
+                        <img class="carousel-img" src= "{{ user_rating.poster_url }}" alt="{{ user_rating.name_eg }}">
+                    </div>
+                {% endfor %}
             </div>
-            <div class="carousel-cell">
-                <img class="carousel-img" src="https://cdn.vox-cdn.com/thumbor/w4zoPhL-LTUszPWHAUOeCmyS07w=/366x80:1263x685/1200x800/filters:focal(634x212:896x474)/cdn.vox-cdn.com/uploads/chorus_image/image/67233661/Ef4Do0cWkAEyy1i.0.jpeg" alt="movies">
-            </div>
-            <div class="carousel-cell">
-                <img class="carousel-img" src="https://cdn.vox-cdn.com/thumbor/w4zoPhL-LTUszPWHAUOeCmyS07w=/366x80:1263x685/1200x800/filters:focal(634x212:896x474)/cdn.vox-cdn.com/uploads/chorus_image/image/67233661/Ef4Do0cWkAEyy1i.0.jpeg" alt="movies">
-            </div>
-            <div class="carousel-cell">
-                <img class="carousel-img" src="https://cdn.vox-cdn.com/thumbor/w4zoPhL-LTUszPWHAUOeCmyS07w=/366x80:1263x685/1200x800/filters:focal(634x212:896x474)/cdn.vox-cdn.com/uploads/chorus_image/image/67233661/Ef4Do0cWkAEyy1i.0.jpeg" alt="movies">
-            </div>
-            <div class="carousel-cell">
-                <img class="carousel-img" src="https://cdn.vox-cdn.com/thumbor/w4zoPhL-LTUszPWHAUOeCmyS07w=/366x80:1263x685/1200x800/filters:focal(634x212:896x474)/cdn.vox-cdn.com/uploads/chorus_image/image/67233661/Ef4Do0cWkAEyy1i.0.jpeg" alt="movies">
-            </div>
-            <div class="carousel-cell">
-                <img class="carousel-img" src="https://cdn.vox-cdn.com/thumbor/w4zoPhL-LTUszPWHAUOeCmyS07w=/366x80:1263x685/1200x800/filters:focal(634x212:896x474)/cdn.vox-cdn.com/uploads/chorus_image/image/67233661/Ef4Do0cWkAEyy1i.0.jpeg" alt="movies">
-            </div>
-        </div>
+        {% endif %}
     </div>
+
     <!-- Script for triggering the flickity package -->
     <script>
         (function($){
