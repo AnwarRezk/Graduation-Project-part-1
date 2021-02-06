@@ -71,7 +71,8 @@ def profile(request):
     
         context = {
             'u_form': u_form,
-            'p_form': p_form
+            'p_form': p_form,
+            'user_ratings': current_user.user_rating_set.all()
         }
         
         return render(request, 'users/profile.html', context)
