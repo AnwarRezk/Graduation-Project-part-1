@@ -12,23 +12,13 @@
         {% else %}
             <form method="POST">
                 {% csrf_token %}
-                <button class="btn btn-outline-info" type="submit">Update</button>
                 <div class="grid-wrapper">
                     {% for result in search_results %}
-                        <div class="card-view">
-                            <div class="card-header" style="background: url({{ result.0.poster_url }}); background-size: cover;">
-                            </div>
-                            <div class="card-movie-content">
-                                <div class="card-movie-content-head">
-                                    <a href="#" class="card-ref">
-                                        <h3 class="card-movie-title">{{result.0.name_eg }}</h3>
-                                    </a>
-                                    {% if result.1 != 0 %}
-                                        <div class="star-ratings"><span class="rating-value">{{ result.1 }}</span>/5</div>
-                                    {% else %}
-                                        <div class="star-ratings"><span class="rating-value">0</span>/5</div>
-                                    {% endif %}
-                                </div>
+                        <div class="card">
+                            <div class="card-header" style="background: url({{ result.0.poster_url }}); background-size: cover;"></div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{result.0.name_eg }}</h5>
+                                <div class="star-ratings"><span class="rating-value">-</span>/5</div>
                                 <div class="card-movie-info">
                                     <div class="movie-genres">
                                         <label>Genres</label>
@@ -42,8 +32,10 @@
                                 </div>
                             </div>
                         </div>
-
                     {% endfor %}
+                </div>
+                <div class="btn-rating">
+                    <button type="submit" class="btn btn-success updateRate" value ="Rate">Submit Ratings</button>
                 </div>
             </form>
         {% endif %}

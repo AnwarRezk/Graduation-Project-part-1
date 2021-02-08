@@ -132,7 +132,8 @@ class SearchResultsView(LoginRequiredMixin, ListView):
                     q &= (Q(actors_name_eg__icontains=actor) | Q(actors_name_ar__icontains=actor))
             
             else:
-                if self.request.GET.get(filtr) == "on":
-                    q &= Q(genres_name_eg__icontains=filtr)
+                if filtr == "csrfmiddlewaretoken":
+                    continue
+                q &= Q(genres_name_eg__icontains=filtr)
         
         return Movie.objects.filter(q)

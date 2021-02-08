@@ -6,10 +6,10 @@
 {% endblock %}
 
 {% block head %}
-    <!-- Include jQuery and flickity package for carousel slider -->
-    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
-    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css" integrity="sha512-OTcub78R3msOCtY3Tc6FzeDJ8N9qvQn1Ph49ou13xgA9VsH9+LRxoFU6EqLhW4+PKRfU+/HReXmSZXHEkpYoOA==" crossorigin="anonymous" />
 {% endblock %}
 
 
@@ -46,9 +46,9 @@
         {% if user_ratings|length == 0 %}
             <h4>No Rated Movies Yet!</h4>
         {% else %}
-            <div class="carousel-slider">
+            <div class="owl-carousel owl-theme">
                 {% for user_rating in user_ratings %}
-                    <div class="carousel-cell">
+                    <div class="item">
                         <img class="carousel-img" src= "{{ user_rating.movie.poster_url }}" alt="{{ user_rating.movie.name_eg }}">
                     </div>
                 {% endfor %}
@@ -58,15 +58,28 @@
 
     <!-- Script for triggering the flickity package -->
     <script>
-        (function($){
-            $(document).ready(function(){
-                $('.carousel-slider').flickity({
-                    cellAlign: 'left',
-                    wrapAround: true,
-                    fade: true
-                });
-            });
-        })(jQuery)
+        $('.owl-carousel').owlCarousel({
+            loop:true,
+            margin:10,
+            mouseDrag: false,
+            responsiveClass:true,
+            responsive:{
+                0:{
+                    items:1,
+                    nav:true,
+                    pagination:false
+                },
+                600:{
+                    items:2,
+                    nav:false
+                },
+                1000:{
+                    items:4,
+                    nav:true,
+                }
+            }
+        })
+
     </script>
 
 {% endblock %}
