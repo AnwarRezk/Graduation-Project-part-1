@@ -68,6 +68,7 @@ class SearchView(LoginRequiredMixin, TemplateView):
 class SearchResultsView(LoginRequiredMixin, ListView):
     model = Movie
     template_name = 'movies/search_results.html'
+    paginate_by = 6
     
     def get_context_data(self,*args, **kwargs):
         current_user = self.request.user

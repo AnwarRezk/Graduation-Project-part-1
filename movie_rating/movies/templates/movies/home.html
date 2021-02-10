@@ -6,18 +6,15 @@
 
 {% block head %}
     <!-- Include jQuery and flickity package for carousel slider -->
-    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
-    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
-    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css" />
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <style>
         body{padding:55px 0;}
         .ratings{margin-bottom:10px;}
-        .flickity-page-dots {bottom: -22px;}
-        .flickity-page-dots .dot {
-            height: 4px;
-            width: 40px;
-            margin: 0;
-            border-radius: 0;
+        .swiper-pagination{
+            margin-top: 20px;
         }
     </style>
 {% endblock %}
@@ -28,76 +25,72 @@
         {% csrf_token %}
             <div class = "content-section ratings" >
                 <legend class="border-bottom mb-4">Latest Movies</legend>
-                <div class="carousel-slider">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        {% for latest_movie in latest_movies %}
+                            <div class="swiper-slide">
 
-                    {% for latest_movie in latest_movies %}
-
-                        <div class="carousel-cell">
-
-                            <div class="card-view">
-                                <div class="card-header" style="background: url({{ latest_movie.poster_url }}); background-size: cover;">
-                                </div>
-                                <div class="card-movie-content">
-                                    <div class="card-movie-content-head">
-                                        <a href="#" class="card-ref">
-                                            <h3 class="card-movie-title">{{latest_movie.name_eg }}</h3>
-                                        </a>
-                                        <div class="star-ratings"><span class="rating-value">-</span>/5</div>
+                                <div class="card">
+                                    <div class="card-header" style="background: url({{ latest_movie.poster_url }}); background-size: cover;">
                                     </div>
-                                    <div class="card-movie-info">
-                                        <div class="movie-genres">
-                                            <label>Genres</label>
-                                            <span>{{ latest_movie.genres_name_eg }}</span>
-                                            <label>Rate</label>
-                                            <fieldset>
-                                                <input type="range" class="range_star" name="{{ latest_movie.name_eg }}" min="0" max="5" step="0.5" value="0">
-                                                <output class="textInput"></output>
-                                            </fieldset>
-
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{latest_movie.name_eg }}</h5>
+                                        <div class="star-ratings"><span class="rating-value">-</span>/5</div>
+                                        <div class="card-movie-info">
+                                            <div class="movie-genres">
+                                                <label>Genres</label>
+                                                <span>{{ latest_movie.genres_name_eg }}</span>
+                                                <label>Rate</label>
+                                                <fieldset>
+                                                    <input type="range" class="range_star" name="{{ latest_movie.name_eg }}" min="0" max="5" step="0.5" value="0">
+                                                    <output class="textInput"></output>
+                                                </fieldset>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                        </div>
-                    {% endfor %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
                 </div>
             </div>
 
             <div class = "content-section ratings" >
                 <legend class="border-bottom mb-4">Popular Movies</legend>
                 <!-- The posters will be dummy for now -->
-                <div class="carousel-slider">
-                    {% for popular_movie in popular_movies %}
-                        <div class="carousel-cell">
-
-                            <div class="card-view">
-                                <div class="card-header" style="background: url({{ popular_movie.poster_url }}); background-size: cover;">
-                                </div>
-                                <div class="card-movie-content">
-                                    <div class="card-movie-content-head">
-                                        <a href="#" class="card-ref">
-                                            <h3 class="card-movie-title">{{popular_movie.name_eg }}</h3>
-                                        </a>
-                                        <div class="star-ratings"><span class="rating-value">-</span>/5</div>
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        {% for popular_movie in popular_movies %}
+                            <div class="swiper-slide">
+                                <div class="card">
+                                    <div class="card-header" style="background: url({{ popular_movie.poster_url }}); background-size: cover;">
                                     </div>
-                                    <div class="card-movie-info">
-                                        <div class="movie-genres">
-                                            <label>Genres</label>
-                                            <span>{{ popular_movie.genres_name_eg }}</span>
-                                            <label>Rate</label>
-                                            <fieldset>
-                                                <input type="range" class="range_star" name="{{ popular_movie.name_eg }}" min="0" max="5" step="0.5" value="0">
-                                                <output class="textInput"></output>
-                                            </fieldset>
-
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{popular_movie.name_eg }}</h5>
+                                        <div class="star-ratings"><span class="rating-value">-</span>/5</div>
+                                        <div class="card-movie-info">
+                                            <div class="movie-genres">
+                                                <label>Genres</label>
+                                                <span>{{ popular_movie.genres_name_eg }}</span>
+                                                <label>Rate</label>
+                                                <fieldset>
+                                                    <input type="range" class="range_star" name="{{ popular_movie.name_eg }}" min="0" max="5" step="0.5" value="0">
+                                                    <output class="textInput"></output>
+                                                </fieldset>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
-                        </div>
-                    {% endfor %}
+                        {% endfor %}
+                    </div>
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
                 </div>
             </div>
 
@@ -107,53 +100,75 @@
                 {% if user_ratings|length == 0 %}
                     <h3 class="no-rating">You have no rated movies yet.</h3>
                 {% else %}
-                    <div class="carousel-slider">
-                    {% for user_rating in user_ratings %}
-                        <div class="carousel-cell">
-
-                        <div class="card-view">
-                            <div class="card-header" style="background: url({{ user_rating.movie.poster_url }}); background-size: cover;">
-                            </div>
-                            <div class="card-movie-content">
-                                <div class="card-movie-content-head">
-                                    <a href="#" class="card-ref">
-                                        <h3 class="card-movie-title">{{user_rating.movie.name_eg }}</h3>
-                                    </a>
-                                    <div class="star-ratings"><span class="rating-value">-</span>/5</div>
-                                </div>
-                                <div class="card-movie-info">
-                                    <div class="movie-genres">
-                                        <label>Genres</label>
-                                        <span>{{user_rating.movie.genres_name_eg }}</span>
-                                        <label>Rate</label>
-                                        <fieldset>
-                                            <input type="range" class="range_star" name="{{ user_rating.movie.name_eg }}" min="0" max="5" step="0.5" value="{{ user_rating.rating }}">
-                                            <output class="textInput"></output>
-                                        </fieldset>
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper">
+                        {% for user_rating in user_ratings %}
+                            <div class="swiper-slide">
+                                <div class="card">
+                                    <div class="card-header" style="background: url({{ user_rating.movie.poster_url }}); background-size: cover;">
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{user_rating.movie.name_eg }}</h5>
+                                        <div class="star-ratings"><span class="rating-value">-</span>/5</div>
+                                        <div class="card-movie-info">
+                                            <div class="movie-genres">
+                                                <label>Genres</label>
+                                                <span>{{ user_rating.movie.genres_name_eg }}</span>
+                                                <label>Rate</label>
+                                                <fieldset>
+                                                    <input type="range" class="range_star" name="{{ user_rating.movie.name_eg }}" min="0" max="5" step="0.5" value="{{ user_rating.rating }}">
+                                                    <output class="textInput"></output>
+                                                </fieldset>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                        {% endfor %}
                         </div>
-
-                    {% endfor %}
-                </div>
+                        <div class="swiper-pagination"></div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                    </div>
                 {% endif %}
-                </div>
             </div>
-        <button type="submit" class="btn btn-success" value ="Rate">Rate</button>
+            <div class="btn-rating">
+                <button type="submit" class="btn btn-success updateRate" value ="Rate">Submit Ratings</button>
+            </div>
         </form>
     </div>
         <!-- Script for triggering the flickity package -->
         <script>
-            (function($){
-                $(document).ready(function(){
-                    $('.carousel-slider').flickity({
-                        cellAlign: 'left',
-                        wrapAround: true,
-                        fade: true
-                    });
-                });
-            })(jQuery)
+            const swiper = new Swiper('.swiper-container', {
+                slidesPerView: 4,
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                    dynamicBullets: true,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                // Responsive breakpoints
+                breakpoints: {
+                    // when window width is >= 320px
+                    320: {
+                        slidesPerView: 1,
+                        spaceBetween: 20
+                    },
+                    // when window width is >= 480px
+                    600: {
+                        slidesPerView: 2,
+                        spaceBetween: 30
+                    },
+                    // when window width is >= 640px
+                    800: {
+                        slidesPerView: 4,
+                        spaceBetween: 10
+                    }
+                },
+            });
 
             let i = document.querySelectorAll('.range_star'),
                 o = document.querySelectorAll('.textInput'),
