@@ -69,27 +69,7 @@ class SearchResultsView(LoginRequiredMixin, ListView):
     model = Movie
     template_name = 'movies/search_results.html'
     paginate_by = 6
-    
-    def get_context_data(self,*args, **kwargs):
-        current_user = self.request.user
-        user_ratings = current_user.user_rating_set.all()
-        rated_movies = [rating.movie for rating in user_ratings]
-        movies_ratings = [rating.rating for rating in user_ratings]
-        search_results = []
-        context = super(SearchResultsView, self).get_context_data(*args, **kwargs)
-        
-        for movie in context['object_list']:
-            if movie in rated_movies:
-                rating = movies_ratings[rated_movies.index(movie)]
-
-            else:
-                rating = 0
-                
-            search_results.insert(len(search_results), [movie, rating])
-        
-        context['search_results'] = search_results
-        
-        return context
+    ordering = ['name_eg']
     
     def post(self, request, *args, **kwargs):
         current_user = request.user
@@ -133,8 +113,25 @@ class SearchResultsView(LoginRequiredMixin, ListView):
                     q &= (Q(actors_name_eg__icontains=actor) | Q(actors_name_ar__icontains=actor))
             
             else:
-                if filtr == "csrfmiddlewaretoken":
+                if filtr == "page":
                     continue
                 q &= Q(genres_name_eg__icontains=filtr)
         
-        return Movie.objects.filter(q)
+        object_list = Movie.objects.filter(q)
+        
+        current_user = self.request.user
+        user_ratings = current_user.user_rating_set.all()
+        rated_movies = [rating.movie for rating in user_ratings]
+        movies_ratings = [rating.rating for rating in user_ratings]
+        search_results = []
+        
+        for movie in object_list:
+            if movie in rated_movies:
+                rating = movies_ratings[rated_movies.index(movie)]
+
+            else:
+                rating = 0
+                
+            search_results.insert(len(search_results), [movie, rating])
+            
+        return search_results
