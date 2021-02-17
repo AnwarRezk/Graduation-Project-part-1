@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% load movies_tags %}
+{% load static %}
 
 {% block title %}
     Search Results
@@ -20,7 +21,7 @@
                             <div class="card-header" style="background: url({{ result.0.poster_url }}); background-size: cover;"></div>
                             <div class="card-body">
                                 <h5 class="card-title">{{result.0.name_eg }}</h5>
-                                <div class="star-ratings"><span class="rating-value">-</span>/5</div>
+                                <div class="star-ratings"><span id="{{result.0.name_eg }} rating-value" class="rating-value">-</span>/5</div>
                                 <div class="card-movie-info">
                                     <div class="movie-genres">
                                         <label>Genres</label>
@@ -28,7 +29,7 @@
                                         <label>Rate</label>
                                         <fieldset>
                                             <input type="range" class="range_star" name="{{ result.0.name_eg }}" min="0" max="5" step="0.5" value="{{ result.1 }}">
-                                            <output class="textInput"></output>
+                                            <output id="{{result.0.name_eg }} textInput" class="textInput"></output>
                                         </fieldset>
                                     </div>
                                 </div>
@@ -64,19 +65,6 @@
         {% endif %}
     </main>
 
-    <script>
-        let i = document.querySelectorAll('.range_star'),
-            o = document.querySelectorAll('.textInput'),
-            r = document.querySelectorAll('.rating-value');
-        for(let j = 0; j< i.length; j++){
-            o[j].innerHTML = i[j].value;
-            r[j].innerHTML = i[j].value;
-
-            i[j].addEventListener('input', function () {
-                o[j].innerHTML = i[j].value;
-                r[j].innerHTML = i[j].value;
-            }, false);
-        }
-    </script>
+    <script src="{% static 'movies/search_session.js' %}"></script>
 
 {% endblock %}
