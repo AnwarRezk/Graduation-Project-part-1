@@ -1,5 +1,5 @@
 window.addEventListener("DOMContentLoaded", () => {
-    let ranges = document.getElementsByClassName("range_star");
+    const ranges = document.getElementsByClassName("range_star");
 
     for(let range of ranges) {
         let value = sessionStorage.getItem(range.getAttribute("name"));
@@ -22,4 +22,26 @@ window.addEventListener("DOMContentLoaded", () => {
             ratingValue.innerHTML = event.target.value;
         });
     }
+
+    document.getElementById("form").addEventListener("submit", (event) => {
+        let form = event.target;
+
+        for(let el of form) {
+            if(el.className == "range_star") {
+                el.remove();
+            }
+        }
+
+        for(let i = 0; i < sessionStorage.length; i++) {
+            let input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = sessionStorage.key(i);
+            input.value = sessionStorage.getItem(sessionStorage.key(i));
+
+            form.appendChild(input);
+        }
+
+        form.submit();
+    });
+
 });

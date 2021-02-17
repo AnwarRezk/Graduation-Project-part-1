@@ -69,7 +69,6 @@ class SearchResultsView(LoginRequiredMixin, ListView):
     model = Movie
     template_name = 'movies/search_results.html'
     paginate_by = 6
-    ordering = ['name_eg']
     
     def post(self, request, *args, **kwargs):
         current_user = request.user
@@ -82,6 +81,7 @@ class SearchResultsView(LoginRequiredMixin, ListView):
         
         # Save the ratings to the database
         for data in request.POST:
+            
             if data == "csrfmiddlewaretoken":
                 continue
             
@@ -117,7 +117,7 @@ class SearchResultsView(LoginRequiredMixin, ListView):
                     continue
                 q &= Q(genres_name_eg__icontains=filtr)
         
-        object_list = Movie.objects.filter(q)
+        object_list = Movie.objects.filter(q).order_by('-final_rating')
         
         current_user = self.request.user
         user_ratings = current_user.user_rating_set.all()

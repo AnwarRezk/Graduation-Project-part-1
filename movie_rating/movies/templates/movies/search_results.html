@@ -13,7 +13,7 @@
         {% if page_obj.object_list|length == 0 %}
             <h3 class="no-results">No Results Found</h3>
         {% else %}
-            <form method="POST">
+            <form id="form" method="POST">
                 {% csrf_token %}
                 <div class="grid-wrapper">
                     {% for result in page_obj.object_list %}
