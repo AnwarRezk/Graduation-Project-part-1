@@ -6,10 +6,10 @@
 
 {% block head %}
     <!-- Include jQuery and flickity package for carousel slider -->
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css" />
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-    <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css" integrity="sha512-OTcub78R3msOCtY3Tc6FzeDJ8N9qvQn1Ph49ou13xgA9VsH9+LRxoFU6EqLhW4+PKRfU+/HReXmSZXHEkpYoOA==" crossorigin="anonymous" />
     <style>
         body{padding:55px 0;}
         .ratings{margin-bottom:10px;}
@@ -25,11 +25,9 @@
         {% csrf_token %}
             <div class = "content-section ratings" >
                 <legend class="border-bottom mb-4">Latest Movies</legend>
-                <div class="swiper-container">
-                    <div class="swiper-wrapper">
+                     <div class="owl-carousel owl-theme">
                         {% for latest_movie in latest_movies %}
-                            <div class="swiper-slide">
-
+                            <div class="item">
                                 <div class="card">
                                     <div class="card-header" style="background: url({{ latest_movie.poster_url }}); background-size: cover;">
                                     </div>
@@ -49,23 +47,17 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                         {% endfor %}
                     </div>
-                    <div class="swiper-pagination"></div>
-                    <div class="swiper-button-next"></div>
-                    <div class="swiper-button-prev"></div>
-                </div>
             </div>
 
             <div class = "content-section ratings" >
                 <legend class="border-bottom mb-4">Popular Movies</legend>
                 <!-- The posters will be dummy for now -->
-                <div class="swiper-container">
-                    <div class="swiper-wrapper">
+                    <div class="owl-carousel owl-theme">
                         {% for popular_movie in popular_movies %}
-                            <div class="swiper-slide">
+                            <div class="item">
                                 <div class="card">
                                     <div class="card-header" style="background: url({{ popular_movie.poster_url }}); background-size: cover;">
                                     </div>
@@ -88,10 +80,6 @@
                             </div>
                         {% endfor %}
                     </div>
-                    <div class="swiper-pagination"></div>
-                    <div class="swiper-button-next"></div>
-                    <div class="swiper-button-prev"></div>
-                </div>
             </div>
 
 
@@ -100,10 +88,9 @@
                 {% if user_ratings|length == 0 %}
                     <h3 class="no-rating">You have no rated movies yet.</h3>
                 {% else %}
-                    <div class="swiper-container">
-                        <div class="swiper-wrapper">
+                    <div class="owl-carousel owl-theme">
                         {% for user_rating in user_ratings %}
-                            <div class="swiper-slide">
+                            <div class="item">
                                 <div class="card">
                                     <div class="card-header" style="background: url({{ user_rating.movie.poster_url }}); background-size: cover;">
                                     </div>
@@ -126,10 +113,6 @@
                             </div>
                         {% endfor %}
                         </div>
-                        <div class="swiper-pagination"></div>
-                        <div class="swiper-button-next"></div>
-                        <div class="swiper-button-prev"></div>
-                    </div>
                 {% endif %}
             </div>
             <div class="btn-rating">
@@ -137,38 +120,27 @@
             </div>
         </form>
     </div>
-        <!-- Script for triggering the flickity package -->
+
         <script>
-            const swiper = new Swiper('.swiper-container', {
-                slidesPerView: 4,
-                pagination: {
-                    el: '.swiper-pagination',
-                    clickable: true,
-                    dynamicBullets: true,
-                },
-                navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
-                },
-                // Responsive breakpoints
-                breakpoints: {
-                    // when window width is >= 320px
-                    320: {
-                        slidesPerView: 1,
-                        spaceBetween: 20
+            $('.owl-carousel').owlCarousel({
+                margin:10,
+                responsiveClass:true,
+                responsive:{
+                    0:{
+                        items:1,
+                        nav:true
                     },
-                    // when window width is >= 480px
-                    600: {
-                        slidesPerView: 2,
-                        spaceBetween: 30
+                    600:{
+                        items:2,
+                        nav:false
                     },
-                    // when window width is >= 640px
-                    800: {
-                        slidesPerView: 4,
-                        spaceBetween: 10
+                    1000:{
+                        items:3,
+                        nav:true,
+                        loop:false
                     }
-                },
-            });
+                }
+            })
 
             let i = document.querySelectorAll('.range_star'),
                 o = document.querySelectorAll('.textInput'),

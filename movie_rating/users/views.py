@@ -62,7 +62,7 @@ def profile(request):
                 current_user.set_password(request.POST.get('password'))
                 current_user.save()
             p_form.save()
-            # messages.success(request, f'Profile updated successfully!') #comment it for now
+            messages.success(request, f'Profile updated successfully!') #comment it for now
             return redirect('profile')
         
     else:

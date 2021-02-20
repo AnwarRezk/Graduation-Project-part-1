@@ -40,43 +40,32 @@ body{
     border-color: #360721;
 }
 
-
 nav{
     /*background-color: rgb(13, 12, 12);*/
     background-color: rgb(28, 28, 27);
     margin-bottom: 20px;
 }
 
-.carousel-img{
-    max-width: 100%;
-    height: auto;
+/* img-carousel styling */
+.img-cover{
+    object-fit: cover;
+    height: 400px;
 }
-
-.carousel-cell{
-    width: 30%;
-    padding: 1rem;
-}
+/* ---------------- */
 
 /* Search Results Styling */
-.grid-wrapper{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: minmax(100px, auto);
-    grid-gap: 20px;
-}
-
 .search_posters{
     margin: 70px auto;
 }
 
 .btn-rating{
-    margin-top: 10px;
+    margin: 20px;
     text-align: center;
 }
 /******************/
 
 /* STYLING CARDS */
-.card-view {
+.card{
     background: #ffffff;
     box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.1);
     width: 100%;
@@ -84,6 +73,8 @@ nav{
     margin: 2em;
     border-radius: 10px;
     display: inline-block;
+    -webkit-transition: 300ms;
+    transition: 300ms;
 }
 
 .card-header {
@@ -110,7 +101,7 @@ nav{
     transition: 300ms;
 }
 
-.card-view:hover {
+.card:hover {
     -webkit-transform: scale(1.03);
     transform: scale(1.03);
     -webkit-transition: 300ms;
@@ -128,16 +119,16 @@ nav{
     margin: 0;
 }
 
-.card-movie-content-head,
 .card-movie-info {
     display: table;
     width: 100%;
 }
 
-.card-movie-title {
+.card-title {
     font-size: 22px;
     margin: 0;
     display: table-cell;
+    text-transform: capitalize;
 }
 
 .star-ratings {
@@ -183,10 +174,6 @@ nav{
 .movie-genres span {
     font-weight: 700;
     font-size: 11px;
-}
-
-.range_star{
-    background-color: red;
 }
 /*------------------*/
 

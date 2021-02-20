@@ -15,8 +15,9 @@
         {% else %}
             <form id="form" method="POST">
                 {% csrf_token %}
-                <div class="grid-wrapper">
+                <div class="row">
                     {% for result in page_obj.object_list %}
+                        <div class="col-sm">
                         <div class="card">
                             <div class="card-header" style="background: url({{ result.0.poster_url }}); background-size: cover;"></div>
                             <div class="card-body">
@@ -35,9 +36,10 @@
                                 </div>
                             </div>
                         </div>
+                        </div>
                     {% endfor %}
                 </div>
-                <div class="btn-rating">
+                <div class="btn-rating justify-content-center">
                     <button type="submit" class="btn btn-success updateRate" value ="Rate">Submit Ratings</button>
                 </div>
             </form>

@@ -27,11 +27,10 @@
             {% csrf_token %}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Profile</legend>
-{#                    <h1>Profile</h1>#}
                 {{ u_form|crispy }}
                 <span class="password">Password*</span>
                 <br>
-                <input type = "password" name="password">
+                <input class="mb-2" type = "password" name="password">
                 {{ p_form|crispy }}
             </fieldset>
             <div class="form-group">
@@ -49,7 +48,7 @@
             <div class="owl-carousel owl-theme">
                 {% for user_rating in user_ratings %}
                     <div class="item">
-                        <img class="carousel-img" src= "{{ user_rating.movie.poster_url }}" alt="{{ user_rating.movie.name_eg }}">
+                        <img class="img-cover" src= "{{ user_rating.movie.poster_url }}" alt="{{ user_rating.movie.name_eg }}">
                     </div>
                 {% endfor %}
             </div>
@@ -61,7 +60,6 @@
         $('.owl-carousel').owlCarousel({
             loop:true,
             margin:10,
-            mouseDrag: false,
             responsiveClass:true,
             responsive:{
                 0:{

@@ -15,7 +15,7 @@
     {% block head  %}{% endblock %}
 </head>
 
-<body>
+<body class="m-5">
     <header class="site-header">
         <nav class="navbar navbar-dark navbar-expand-lg fixed-top navbar-custom">
             <div class="container"><a class="navbar-brand" href="{% url 'home' %}">Mega Movies</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navbarResponsive"><span class="navbar-toggler-icon"></span></button>
@@ -32,14 +32,14 @@
     </header>
     {% block content %}{% endblock %}
 
-{#    {% include 'users/messages.html' %}#}
-{#    <script>#}
-{#        setTimeout(function(){#}
-{#            if($('#msg').length > 0){#}
-{#                $('#msg').remove();#}
-{#            }#}
-{#        }, 2000)#}
-{#    </script>#}
+    {% include 'users/messages.html' %}
+    <script>
+        setTimeout(function(){
+            if($('#msg').length > 0){
+                $('#msg').remove();
+            }
+        }, 2000)
+    </script>
 
 </body>
 </html>
