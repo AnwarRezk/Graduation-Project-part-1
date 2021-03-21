@@ -94,11 +94,7 @@ nav{
     -webkit-transition: 300ms;
     transition: 300ms;
     box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.08);
-    background: linear-gradient(
-            45deg,
-            rgba(29, 236, 197, 0.5),
-            rgba(91, 14, 214, 0.5) 100%
-    );
+    background: linear-gradient(to right top, #3c5b90, #4e4579, #562f5c, #54193d, #49041f);
 }
 
 .card-movie-content {
@@ -106,9 +102,9 @@ nav{
     margin: 0;
 }
 
-.card-body{
-    height: 100%;
-}
+/*.card-body{*/
+/*    height: 100%;*/
+/*}*/
 
 .card-movie-info {
     display: table;
