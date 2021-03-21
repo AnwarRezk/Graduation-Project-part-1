@@ -17,25 +17,25 @@
                 {% csrf_token %}
                 <div class="row">
                     {% for result in page_obj.object_list %}
-                        <div class="col-sm">
-                        <div class="card">
-                            <div class="card-header" style="background: url({{ result.0.poster_url }}); background-size: cover;"></div>
-                            <div class="card-body">
-                                <h5 class="card-title">{{result.0.name_eg }}</h5>
-                                <div class="star-ratings"><span id="{{result.0.name_eg }} rating-value" class="rating-value">-</span>/5</div>
-                                <div class="card-movie-info">
-                                    <div class="movie-genres">
-                                        <label>Genres</label>
-                                        <span>{{ result.0.genres_name_eg }}</span>
-                                        <label>Rate</label>
-                                        <fieldset>
-                                            <input type="range" class="range_star" name="{{ result.0.name_eg }}" min="0" max="5" step="0.5" value="{{ result.1 }}">
-                                            <output id="{{result.0.name_eg }} textInput" class="textInput"></output>
-                                        </fieldset>
+                        <div class="col-sm-4 col-md-4">
+                            <div class="card">
+                                <div class="card-header" style="background: url({{ result.0.poster_url }}); background-size: cover;"></div>
+                                <div class="card-body">
+                                    <h5 class="card-title">{{result.0.name_eg }}</h5>
+                                    <div class="star-ratings"><span id="{{result.0.name_eg }} rating-value" class="rating-value">-</span>/5</div>
+                                    <div class="card-movie-info">
+                                        <div class="movie-genres">
+                                            <label>Genres</label>
+                                            <span>{{ result.0.genres_name_eg }}</span>
+                                            <label>Rate</label>
+                                            <fieldset>
+                                                <input type="range" class="range_star" name="{{ result.0.name_eg }}" min="0" max="5" step="0.5" value="{{ result.1 }}">
+                                                <output id="{{result.0.name_eg }} textInput" class="textInput"></output>
+                                            </fieldset>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         </div>
                     {% endfor %}
                 </div>

@@ -1,20 +1,20 @@
 @import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css);
-body{
+body {
     font-family: 'Poppins', sans-serif;
     background: white;
 }
 
 .content-section {
     color: black;
-    padding: 10px 40px;
+    padding: 30px 40px;
     border: 1px solid transparent;
     border-radius: 3px;
-    margin-top: 55px;
+    /*margin-top: 55px;*/
 }
 
 .ratings{
     margin-top: 0;
-    margin-bottom: 60px;
+    /*margin-bottom: 60px;*/
 }
 
 .account-img {
@@ -41,8 +41,9 @@ body{
 }
 
 nav{
-    /*background-color: rgb(13, 12, 12);*/
-    background-color: rgb(28, 28, 27);
+    background: rgb(24, 28, 32);
+    border-bottom: 1px solid rgb(30, 36, 41);
+    box-shadow: #000 0px 0px 8px 0px;
     margin-bottom: 20px;
 }
 
@@ -87,20 +88,6 @@ nav{
     border-top-right-radius: 10px;
 }
 
-.card-ref{
-    text-decoration: none;
-    text-transform: capitalize;
-    -webkit-transition: 300ms;
-    transition: 300ms;
-    color: inherit;
-}
-
-.card-ref:hover{
-    text-decoration: none;
-    -webkit-transition: 300ms;
-    transition: 300ms;
-}
-
 .card:hover {
     -webkit-transform: scale(1.03);
     transform: scale(1.03);
@@ -119,13 +106,17 @@ nav{
     margin: 0;
 }
 
+.card-body{
+    height: 100%;
+}
+
 .card-movie-info {
     display: table;
     width: 100%;
 }
 
 .card-title {
-    font-size: 22px;
+    font-size: 18px;
     margin: 0;
     display: table-cell;
     text-transform: capitalize;
