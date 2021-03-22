@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
-import json
+# import json
 import os
 from django.contrib.messages import constants as messages
 
@@ -19,21 +19,21 @@ from django.contrib.messages import constants as messages
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 #Read secrets file
-with open('../secrets.json', 'r') as file:
-    data = file.read()
+# with open('../secrets.json', 'r') as file:
+#     data = file.read()
 
-secrets = json.loads(data)
+# secrets = json.loads(data)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = secrets['SECRET_KEY']
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = (os.environ.get('DEBUG_VALUE') == 'True')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['megamoviez.herokuapp.com']
 
 
 # Application definition
