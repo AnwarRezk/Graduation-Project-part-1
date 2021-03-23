@@ -5,6 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from .models import *
+import random
 
 # Create your views here.
 
@@ -55,8 +56,9 @@ def home(request):
         for movie in p_m:
             if (movie not in user_rated_movies) and (movie not in latest_movies):
                 popular_movies.insert(len(popular_movies), movie)
-            if len(popular_movies) == 20:
-                break
+        
+        num_samples = 20
+        popular_movies = random.sample(popular_movies, num_samples)
         
         context = {
             'user_ratings': user_ratings,
