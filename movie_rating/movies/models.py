@@ -6,14 +6,14 @@ from django.contrib.auth.models import User
 
 class Movie(models.Model):
 
-	name_eg = models.CharField(max_length=100,blank=True)
-	name_ar = models.CharField(max_length=100,blank=True)
+	name_eg = models.CharField(max_length=200,blank=True)
+	name_ar = models.CharField(max_length=200,blank=True)
 	
-	actors_name_eg = models.CharField(max_length=100,blank=True)
-	actors_name_ar = models.CharField(max_length=100,blank=True)
+	actors_name_eg = models.CharField(max_length=200,blank=True)
+	actors_name_ar = models.CharField(max_length=200,blank=True)
 
-	genres_name_eg = models.CharField(max_length=100,blank=True)
-	genres_name_ar = models.CharField(max_length=100,blank=True)
+	genres_name_eg = models.CharField(max_length=200,blank=True)
+	genres_name_ar = models.CharField(max_length=200,blank=True)
 
 	poster_url = models.URLField(blank=True)
 
@@ -35,7 +35,7 @@ class MovieInfo(models.Model):
 
 	date = models.IntegerField(default=1900,validators=[MinValueValidator(1900), MaxValueValidator(3000)])
 	
-	country = models.CharField(max_length=40,blank=True)
+	country = models.CharField(max_length=200,blank=True)
 
 	# gatherd from egybest
 	rating = models.FloatField(default=0,validators=[MinValueValidator(0), MaxValueValidator(5)])
