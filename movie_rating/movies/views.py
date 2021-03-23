@@ -37,9 +37,9 @@ def home(request):
         return redirect('home')
         
     else:
-        movies_info = MovieInfo.objects.all().order_by('-date')[:20]
+        movies_info = MovieInfo.objects.all().order_by('-date')
         l_m = [info.movie for info in movies_info]
-        p_m = list(Movie.objects.all().order_by('-final_rating')[:20])
+        p_m = list(Movie.objects.all().order_by('-final_rating'))
         
         latest_movies = []
         popular_movies = []
@@ -48,11 +48,15 @@ def home(request):
         for movie in l_m:
             if movie not in user_rated_movies:
                 latest_movies.insert(len(latest_movies), movie)
+            if len(latest_movies) == 20:
+                break
         
         # Remove the duplicates between the popular movies and the latest movies, and the rated movies
         for movie in p_m:
             if (movie not in user_rated_movies) and (movie not in latest_movies):
                 popular_movies.insert(len(popular_movies), movie)
+            if len(popular_movies) == 20:
+                break
         
         context = {
             'user_ratings': user_ratings,
