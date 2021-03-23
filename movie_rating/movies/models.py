@@ -6,14 +6,14 @@ from django.contrib.auth.models import User
 
 class Movie(models.Model):
 
-	name_eg = models.CharField(max_length=100,blank=True)
-	name_ar = models.CharField(max_length=100,blank=True)
+	name_eg = models.CharField(max_length=200,blank=True,null=True)
+	name_ar = models.CharField(max_length=200,blank=True,null=True)
 	
-	actors_name_eg = models.CharField(max_length=100,blank=True)
-	actors_name_ar = models.CharField(max_length=100,blank=True)
+	actors_name_eg = models.CharField(max_length=200,blank=True,null=True)
+	actors_name_ar = models.CharField(max_length=200,blank=True,null=True)
 
-	genres_name_eg = models.CharField(max_length=100,blank=True)
-	genres_name_ar = models.CharField(max_length=100,blank=True)
+	genres_name_eg = models.CharField(max_length=200,blank=True,null=True)
+	genres_name_ar = models.CharField(max_length=200,blank=True,null=True)
 
 	poster_url = models.URLField(blank=True)
 
@@ -44,7 +44,7 @@ class MovieInfo(models.Model):
 	# rating calculated using imdb formula
 	#final_rating = models.FloatField(default=0,validators=[MinValueValidator(0), MaxValueValidator(10)])
 
-	plot = models.TextField(blank=True)
+	plot = models.TextField(blank=True,null=True)
 
 	actors_urls = models.ManyToManyField(Actor,blank=True)
 
