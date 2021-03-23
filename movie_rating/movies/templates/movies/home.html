@@ -30,7 +30,7 @@
                                     </div>
                                     <div class="card-body">
                                         <h5 class="card-title">{{latest_movie.name_eg }}</h5>
-                                        <div class="star-ratings"><span class="rating-value">{{ latest_movie.final_rating|truncatechars:3 }}</span>/5</div>
+                                        <div class="star-ratings"><span class="rating-value">{{ latest_movie.final_rating|floatformat }}</span>/5</div>
                                         <div class="card-movie-info">
                                             <div class="movie-genres">
                                                 <label>Genres</label>
@@ -60,7 +60,7 @@
                                     </div>
                                     <div class="card-body">
                                         <h5 class="card-title">{{popular_movie.name_eg }}</h5>
-                                        <div class="star-ratings"><span class="rating-value">{{ popular_movie.final_rating|truncatechars:3 }}</span>/5</div>
+                                        <div class="star-ratings"><span class="rating-value">{{ popular_movie.final_rating|floatformat }}</span>/5</div>
                                         <div class="card-movie-info">
                                             <div class="movie-genres">
                                                 <label>Genres</label>
@@ -93,7 +93,7 @@
                                     </div>
                                     <div class="card-body">
                                         <h5 class="card-title">{{user_rating.movie.name_eg }}</h5>
-                                        <div class="star-ratings"><span class="rating-value">{{ user_rating.final_rating|truncatechars:3 }}</span>/5</div>
+                                        <div class="star-ratings"><span class="rating-value">{{ user_rating.movie.final_rating|floatformat }}</span>/5</div>
                                         <div class="card-movie-info">
                                             <div class="movie-genres">
                                                 <label>Genres</label>
