@@ -9,9 +9,7 @@ window.addEventListener("DOMContentLoaded", () => {
         }
 
         let textInput = document.getElementById(`${range.getAttribute("name")} textInput`);
-        let ratingValue = document.getElementById(`${range.getAttribute("name")} rating-value`);
         textInput.innerHTML = range.getAttribute("value");
-        ratingValue.innerHTML = range.getAttribute("value");
 
         range.addEventListener("change", (event) => {
             sessionStorage.setItem(range.getAttribute("name"), event.target.value);
@@ -19,7 +17,6 @@ window.addEventListener("DOMContentLoaded", () => {
 
         range.addEventListener('input', function (event) {
             textInput.innerHTML = event.target.value;
-            ratingValue.innerHTML = event.target.value;
         });
     }
 
