@@ -1,0 +1,179 @@
+@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css);
+body {
+    font-family: 'Poppins', sans-serif;
+    background: rgb(24, 26, 27);
+}
+
+.content-section {
+    color: rgb(232, 230, 227);
+    padding: 30px 40px;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    /*margin-top: 55px;*/
+}
+
+.ratings{
+    margin-top: 0;
+    /*margin-bottom: 60px;*/
+}
+
+.account-img {
+    height: 125px;
+    width: 125px;
+    margin-right: 20px;
+    margin-bottom: 16px;
+}
+
+.account-heading {
+    font-size: 2rem;
+}
+
+.form-group button{
+    background-color: #360721;
+    color: white;
+    border-color: #360721;
+}
+
+.form-group button:hover{
+    background-color: white;
+    color: #360721;
+    border-color: #360721;
+}
+
+nav{
+    background: rgb(24, 28, 32);
+    border-bottom: 1px solid rgb(30, 36, 41);
+    box-shadow: #000 0px 0px 8px 0px;
+    /*font-weight: bold;*/
+    font-style: italic;
+    margin-bottom: 20px;
+}
+
+/* img-carousel styling */
+.img-cover{
+    object-fit: cover;
+    height: 400px;
+}
+/* ---------------- */
+
+/* Search Results Styling */
+.search_posters{
+    margin: 70px auto;
+}
+
+.btn-rating{
+    margin: 20px;
+    text-align: center;
+}
+/******************/
+
+/* STYLING CARDS */
+.card{
+    background: rgb(24, 26, 27);
+    box-shadow: 0px 6px 18px 5px rgba(10, 10, 10, 0.6);
+    width: 100%;
+    max-width: 372px;
+    margin: 2em;
+    border-radius: 10px;
+    display: inline-block;
+    -webkit-transition: 300ms;
+    transition: 300ms;
+}
+
+.card-header {
+    padding: 0;
+    margin: 0;
+    height: 367px;
+    width: 100%;
+    display: block;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.card:hover {
+    -webkit-transform: scale(1.03);
+    transform: scale(1.03);
+    -webkit-transition: 300ms;
+    transition: 300ms;
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.08);
+    background: linear-gradient(to right top, #3c5b90, #4e4579, #562f5c, #54193d, #49041f);
+}
+
+.card-movie-content {
+    padding: 18px 18px 24px 18px;
+    margin: 0;
+}
+
+.card-body{
+    color: rgb(232, 230, 227);
+    height: 180px;
+    max-height: 180px;
+}
+
+.card-movie-info {
+    display: table;
+    width: 100%;
+}
+
+.card-title {
+    font-size: 18px;
+    margin: 0;
+    display: table-cell;
+    text-transform: capitalize;
+}
+
+.star-ratings {
+    width: 50px;
+    height: 15px;
+    background-size: contain;
+    display: table-cell;
+    text-align: right;
+    position: relative;
+    margin-top: 5px;
+    font-weight: 600;
+}
+
+.star-ratings span {
+    color: #2196F3;
+}
+
+.card-movie-info {
+    margin-top: 1em;
+}
+
+.card-movie-info {
+    margin-top: 1em;
+}
+
+.movie-genres {
+    display: table-cell;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.movie-genres {
+    text-align: left;
+}
+
+.movie-genres label {
+    display: block;
+    color: rgba(209, 205, 199, 0.7);
+    margin-bottom: .5em;
+    font-size: 9px;
+}
+
+.movie-genres span {
+    font-weight: 700;
+    font-size: 11px;
+}
+/*------------------*/
+
+/* Search Page */
+.check-holder{
+    width: 300px;
+    height: 175px;
+}
+
+.form-check{
+    display: inline-block;
+}
