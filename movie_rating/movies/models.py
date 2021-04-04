@@ -17,17 +17,11 @@ class Movie(models.Model):
 
 	poster_url = models.URLField(blank=True)
 
-	# include rating or imdb calcuated rating | use this or the one from egybest
+	# rating calculated using imdb formula
 	final_rating = models.FloatField(default=0,validators=[MinValueValidator(0), MaxValueValidator(5)])
 
 	def __str__(self):
 		return f"{self.name_eg} | {self.name_ar}"
-
-class Actor(models.Model):
-
-	image_url = models.URLField(blank=True)
-	def __str__(self):
-		return f"{self.image_url}"
 
 class MovieInfo(models.Model):
 
@@ -41,12 +35,9 @@ class MovieInfo(models.Model):
 	rating = models.FloatField(default=0,validators=[MinValueValidator(0), MaxValueValidator(5)])
 	rating_count = models.IntegerField(default=0)
 
-	# rating calculated using imdb formula
-	#final_rating = models.FloatField(default=0,validators=[MinValueValidator(0), MaxValueValidator(10)])
-
 	plot = models.TextField(blank=True,null=True)
 
-	actors_urls = models.ManyToManyField(Actor,blank=True)
+	actors_urls = models.TextField(blank=True, null=True)
 
 	def __str__(self):
 		return f"Info of: {self.movie.name_eg} | {self.movie.name_ar}"
