@@ -56,8 +56,6 @@ def home(request):
         for movie in p_m:
             if (movie not in user_rated_movies) and (movie not in latest_movies):
                 popular_movies.insert(len(popular_movies), movie)
-            if len(popular_movies) == 20:
-                break
         
         num_samples = 20
         popular_movies = random.sample(popular_movies, num_samples)
