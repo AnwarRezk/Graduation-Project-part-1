@@ -59,8 +59,8 @@ def home(request):
             if len(popular_movies) == 20:
                 break
         
-        # num_samples = 20
-        # popular_movies = random.sample(popular_movies, num_samples)
+        num_samples = 20
+        popular_movies = random.sample(popular_movies, num_samples)
         
         context = {
             'user_ratings': user_ratings,
