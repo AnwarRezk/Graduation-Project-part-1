@@ -37,4 +37,20 @@ function validateForm() {
             return false;
         }
     }
+
+    // if(checkUsernameSpace() === false) {
+    //     return false;
+    // }
 }
+
+// function checkUsernameSpace() {
+//     const username = document.getElementById('id_username');
+
+//     if (username.value.includes(' ')) {
+//         if (!document.getElementById('spaceMessage')){
+//             username.labels[0].insertAdjacentHTML("afterend", "<span id='spaceMessage' style='color:red'> **Username shouldn't contain spaces</span>");
+//         }
+
+//         return false;
+//     }
+// }
