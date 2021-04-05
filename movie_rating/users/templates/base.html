@@ -24,6 +24,7 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     {% block form %}{% endblock %}
                     <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'profile' %}">Profile</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'search' %}">Search</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Log Out</a></li>

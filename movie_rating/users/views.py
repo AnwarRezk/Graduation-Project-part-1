@@ -18,12 +18,16 @@ def LoginPage(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('/')
+                return redirect('notepage')
             else: #something went wrong
                 context = {'username': username}
                 messages.warning(request,'Username/Password is incorrect')
 
         return render(request, 'users/login.html', context)
+
+@login_required
+def notepage(request):
+    return render(request, 'users/notepage.html')
 
 def RegisterPage(request):
     if request.user.is_authenticated:

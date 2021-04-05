@@ -26,6 +26,7 @@ urlpatterns = [
     path('register/', users_views.RegisterPage, name='register'),
     path('logout/', users_views.LogoutUser, name='logout'),
     path('profile/', users_views.profile, name='profile'),
+    path('notepage/', users_views.notepage, name="notepage"),
 ]
 
 if settings.DEBUG:
