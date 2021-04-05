@@ -111,14 +111,14 @@ class SearchResultsView(LoginRequiredMixin, ListView):
                 q &= (Q(name_eg__icontains=self.request.GET.get(filtr)) | Q(name_ar__icontains=self.request.GET.get(filtr)))
                 
             elif filtr == "actors":
-                if ',' in self.request.GET.get(filtr):
+                if self.request.GET.get(filtr):
                     actors = self.request.GET.get(filtr).split(',')
-                    
-                else:
-                    actors = self.request.GET.get(filtr).split(' ')
-                    
-                for actor in actors:
-                    q &= (Q(actors_name_eg__icontains=actor) | Q(actors_name_ar__icontains=actor))
+                        
+                    for actor in actors:
+                        if actor[0] == ' ':
+                            actor = actor[1:]
+                        
+                        q &= (Q(actors_name_eg__icontains=actor) | Q(actors_name_ar__icontains=actor))
             
             else:
                 if filtr == "page":

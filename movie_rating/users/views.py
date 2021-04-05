@@ -3,6 +3,7 @@ from .forms import UserForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -56,7 +57,7 @@ def profile(request):
         u_form = UserUpdateForm(request.POST, instance=current_user)
         p_form = ProfileUpdateForm(request.POST, request.FILES, instance=current_user.profile)
         
-        if u_form.is_valid and p_form.is_valid:
+        if u_form.is_valid() and p_form.is_valid():
             u_form.save()
             if request.POST.get('password'):
                 current_user.set_password(request.POST.get('password'))
@@ -64,6 +65,15 @@ def profile(request):
             p_form.save()
             messages.success(request, f'Profile updated successfully!') #comment it for now
             return redirect('profile')
+        
+        else:
+            context = {
+                'u_form': u_form,
+                'p_form': p_form,
+                'user_ratings': current_user.user_rating_set.all()
+            }
+            
+            return render(request, 'users/profile.html', context)
         
     else:
         u_form = UserUpdateForm(instance=current_user)
