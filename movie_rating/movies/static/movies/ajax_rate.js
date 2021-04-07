@@ -15,13 +15,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 rating: rating.value
             })
         })
-        .then(res => res.json())
-        .then(res => {
-            if (res.status == "OK") {
-                window.location.reload();
-            }
-        })
-        .catch(err => console.error(err));
+            .then(res => res.json())
+            .then(res => {
+                if (res.status == "OK") {
+                    flashMessage(res.message);
+                }
+            })
+            .catch(err => console.error(err));
     });
 });
 
@@ -39,4 +39,26 @@ function getCookie(name) {
         }
     }
     return cookieValue;
+}
+
+function flashMessage(message) {
+    const messageElem = `<div class="row">
+    <div class="alert ${message.tags} alert-dismissible fade show" id="msg" role="alert">
+        ${message.data}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</div>`;
+
+    document.getElementById('messages').innerHTML += messageElem;
+    fadeMessage();
+}
+
+function fadeMessage() {
+    setTimeout(function () {
+        if ($('#msg').length > 0) {
+            $('#msg').remove();
+        }
+    }, 2000);
 }

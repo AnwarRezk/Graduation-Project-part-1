@@ -168,8 +168,15 @@ def movie_details(request, pk):
             rating = User_Rating(user=current_user, movie=movie, rating=float(json.loads(request.body)['rating']))
             rating.save()
         
-        messages.success(request, 'Your rating has been saved!')
-        return JsonResponse({"status": "OK"})
+        response = {
+            "status": "OK",
+            "message": {
+                "tags": "alert-success",
+                "data": "Your rating has been saved!"
+            }
+        }
+        
+        return JsonResponse(response)
         # return redirect('movie-details', pk=pk)
         
     else:
