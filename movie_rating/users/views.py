@@ -52,6 +52,10 @@ def LogoutUser(request):
 @login_required
 def profile(request):
     current_user = request.user
+    backup_user = {
+        "username": current_user.username,
+        "email": current_user.email
+    }
     
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=current_user)
@@ -66,23 +70,15 @@ def profile(request):
             messages.success(request, f'Profile updated successfully!') #comment it for now
             return redirect('profile')
         
-        else:
-            context = {
-                'u_form': u_form,
-                'p_form': p_form,
-                'user_ratings': current_user.user_rating_set.all()
-            }
-            
-            return render(request, 'users/profile.html', context)
-        
     else:
         u_form = UserUpdateForm(instance=current_user)
         p_form = ProfileUpdateForm(instance=current_user.profile)
     
-        context = {
-            'u_form': u_form,
-            'p_form': p_form,
-            'user_ratings': current_user.user_rating_set.all()
-        }
+    context = {
+        'USER': backup_user,
+        'u_form': u_form,
+        'p_form': p_form,
+        'user_ratings': current_user.user_rating_set.all()
+    }
         
-        return render(request, 'users/profile.html', context)
+    return render(request, 'users/profile.html', context)
