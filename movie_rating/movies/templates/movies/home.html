@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block title %}
     Home
 {% endblock %}
@@ -18,7 +20,7 @@
 
 {% block content %}
     <div class="container-fluid">
-        <form method="POST">
+        <form id="form" method="POST">
         {% csrf_token %}
             <div class = "content-section ratings" >
                 <legend class="border-bottom mb-4">Latest Movies</legend>
@@ -149,4 +151,6 @@
                 }, false);
             }
         </script>
+
+        <script src="{% static 'movies/home_clear_session.js' %}"></script>
 {% endblock %}
