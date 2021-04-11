@@ -19,7 +19,8 @@ document.addEventListener("DOMContentLoaded", () => {
             })
                 .then(res => res.json())
                 .then(res => {
-                    if (res.status == "OK") {
+                    if (res.status === "OK") {
+                        window.scrollTo(0, 0);
                         flashMessage(res.message);
 
                         if (sessionStorage.getItem(rating.getAttribute("name"))) {

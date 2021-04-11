@@ -199,7 +199,7 @@ nav{
 .details-box{
     width: 100%;
     background-color: rgba(24, 28, 32, 0.5);
-    max-width: 98em;
+    max-width: 120em;
     padding: 5em;
     box-shadow: 0 1.4em 8em rgba(0,0,0,0.8);
     display: flex;
