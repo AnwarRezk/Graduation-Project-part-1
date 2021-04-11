@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block title %}
-    Search
+    Movie Details
 {% endblock %}
 
 {% block head %}
@@ -11,10 +11,40 @@
 {% endblock %}
 
 {% block content %}
-    
-    <h1>{{ movie.name_eg }}</h1>
-    <input id="rating" type="range" min="0" max="5" step="0.5" value="{{ rating }}">
-    
-    <script src="{% static 'movies/ajax_rate.js' %}"></script>
+    <div class="details-container">
+        <div class="details-box">
+            <div class="details-img">
+                <img src="{{ movie.poster_url }}" alt="{{ movie.name_eg }}">
+            </div>
+            <div class="details-info">
 
+                <div class="details-sub-info">
+                    <span>{{ movie.genres_name_eg }}</span>
+                    <span>{{ movie.movieinfo.country }}</span>
+                    <span>{{ movie.movieinfo.date }}</span>
+                </div>
+                <h1 class="details-title">{{ movie.name_eg }}</h1>
+                <p class="details-summary">{{ movie.movieinfo.plot }}</p>
+                <fieldset>
+                    <input type="range" class="range_star" id="rating" name="{{ movie.name_eg }}" min="0" max="5" step="0.5" value="{{ rating }}">
+                    <output style="color:white; font-size: 20px;" class="textInput"></output>
+                </fieldset>
+            </div>
+
+        </div>
+    </div>
+
+
+    <script src="{% static 'movies/ajax_rate.js' %}"></script>
+    <script>
+        let i = document.querySelectorAll('.range_star'),
+            o = document.querySelectorAll('.textInput');
+        for(let j = 0; j< i.length; j++){
+            o[j].innerHTML = i[j].value;
+
+            i[j].addEventListener('input', function () {
+                o[j].innerHTML = i[j].value;
+            }, false);
+        }
+    </script>
 {% endblock %}

@@ -2,16 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="284184f4-d0fb-46f5-8879-80f5692e7f3d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/movie_rating/users/static/users/tempsnip.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/movie_rating/users/templates/users/notepage.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/movie_rating/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/movie_rating/db.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/movie_rating/movie_rating/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/movie_rating/movie_rating/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/movie_rating/movie_rating/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/movie_rating/movie_rating/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/movie_rating/movies/templates/movies/search.html" beforeDir="false" afterPath="$PROJECT_DIR$/movie_rating/movies/templates/movies/search.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/movie_rating/users/static/users/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/movie_rating/users/static/users/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/movie_rating/users/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/movie_rating/users/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/movie_rating/users/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/movie_rating/users/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/movie_rating/movies/templates/movies/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/movie_rating/movies/templates/movies/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/movie_rating/movies/templates/movies/movie_details.html" beforeDir="false" afterPath="$PROJECT_DIR$/movie_rating/movies/templates/movies/movie_details.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/movie_rating/movies/templates/movies/search_results.html" beforeDir="false" afterPath="$PROJECT_DIR$/movie_rating/movies/templates/movies/search_results.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/movie_rating/users/static/users/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/movie_rating/users/static/users/style.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,19 +63,6 @@
       <recent name="C:\Users\Admin\Documents\Repos\Graduation-Project\movie_rating\users\templates" />
     </key>
   </component>
-  <component name="RunManager">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -117,6 +100,8 @@
       <workItem from="1616371993901" duration="2273000" />
       <workItem from="1616387051835" duration="164000" />
       <workItem from="1617636222550" duration="4709000" />
+      <workItem from="1618065975244" duration="4381000" />
+      <workItem from="1618139078078" duration="2692000" />
     </task>
     <servers />
   </component>

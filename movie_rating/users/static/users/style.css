@@ -122,6 +122,11 @@ nav{
     text-transform: capitalize;
 }
 
+.card-title:hover{
+    text-decoration: none;
+    color: grey;
+}
+
 .star-ratings {
     width: 50px;
     height: 15px;
@@ -176,4 +181,85 @@ nav{
 
 .form-check{
     display: inline-block;
+}
+
+/*===================*/
+
+.details-container{
+    font-size: 10px;
+    background-color: rgb(24, 26, 27);
+    width: 100%;
+    height: 100vh;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.details-box{
+    width: 100%;
+    background-color: rgba(24, 28, 32, 0.5);
+    max-width: 98em;
+    padding: 5em;
+    box-shadow: 0 1.4em 8em rgba(0,0,0,0.8);
+    display: flex;
+    align-items: center;
+    border-radius: 0.8em;
+}
+
+.details-img{
+    max-width: 35em;
+    max-height: 50em;
+    height: 45em;
+    transform: translateX(-8em);
+    position: relative;
+}
+
+.details-img img{
+    width: 30em;
+    height: 100%;
+    display: block;
+    border-radius: 0.8em;
+}
+
+.details-sub-info span{
+    display: block;
+    color: rgba(255,255,255, 0.5);
+    font-size: 1.6em;
+    font-weight: 600;
+    margin: 0.5em 0;
+    text-transform: uppercase;
+}
+
+.details-title{
+    font-size: 2.5em;
+    margin: 1em 0;
+    text-transform: uppercase;
+    color: #b54c88;
+}
+
+.details-summary{
+    margin-bottom: 3em;
+    font-size: 2em;
+    color: rgba(255,255,255,0.7);
+}
+
+
+@media screen  and (max-width: 868px) {
+    .details-box{
+        max-width: 70em;
+    }
+}
+
+@media screen  and (max-width: 768px) {
+    .details-box{
+        padding: 2.5em;
+        flex-direction: column;
+    }
+
+    .details-img{
+        min-width: 100%;
+        max-width: 100%;
+        transform: translate(0, -8em);
+    }
 }
