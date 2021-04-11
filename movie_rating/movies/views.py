@@ -184,10 +184,13 @@ def movie_details(request, pk):
             rating = user_ratings[user_rated_movies.index(movie)].rating
         else:
             rating = 0
+        
+        actors = [(name, image) for name, image in zip(movie.actors_name_eg.split(', '), movie.movieinfo.actors_urls.split(', '))]
             
         context = {
             "movie": movie,
-            "rating": rating
+            "rating": rating,
+            "actors": actors
         }
         
         return render(request, 'movies/movie_details.html', context)
