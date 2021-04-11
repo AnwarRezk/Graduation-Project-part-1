@@ -1,27 +1,35 @@
 document.addEventListener("DOMContentLoaded", () => {
     const rating = document.getElementById('rating');
     const csrftoken = getCookie('csrftoken');
+    rating.oldvalue = rating.value;
 
-    rating.addEventListener("change", () => {
-        fetch('#', {
-            method: 'POST',
-            mode: 'same-origin',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-Requested-With': 'XMLHttpRequest',
-                'X-CSRFToken': csrftoken
-            },
-            body: JSON.stringify({
-                rating: rating.value
+    rating.addEventListener("change", (event) => {
+        if (parseFloat(event.target.value) !== parseFloat(event.target.oldvalue)) {
+            fetch('#', {
+                method: 'POST',
+                mode: 'same-origin',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRFToken': csrftoken
+                },
+                body: JSON.stringify({
+                    rating: rating.value
+                })
             })
-        })
-            .then(res => res.json())
-            .then(res => {
-                if (res.status == "OK") {
-                    flashMessage(res.message);
-                }
-            })
-            .catch(err => console.error(err));
+                .then(res => res.json())
+                .then(res => {
+                    if (res.status == "OK") {
+                        flashMessage(res.message);
+
+                        if (sessionStorage.getItem(rating.getAttribute("name"))) {
+                            sessionStorage.removeItem(rating.getAttribute("name"));
+                        }
+                        event.target.oldvalue = event.target.value;
+                    }
+                })
+                .catch(err => console.error(err));
+        }
     });
 });
 

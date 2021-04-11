@@ -13,6 +13,11 @@
     <link rel="stylesheet" type="text/css" href="{% static 'users/style.css' %}">
     <link rel="shortcut icon" href="{% static 'users/favicon.ico' %}"/>
     <script src="{% static 'users/pw_val.js' %}"></script>
+    <script>
+        if (performance.navigation.type == 2) {
+                location.reload(true);
+            }
+    </script>
     <title>{% block title %}{% endblock %}</title>
     {% block head  %}{% endblock %}
 </head>
