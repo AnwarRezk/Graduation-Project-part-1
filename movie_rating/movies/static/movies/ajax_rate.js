@@ -61,7 +61,8 @@ function flashMessage(message) {
 </div>`;
 
     document.getElementById('messages').innerHTML += messageElem;
-    document.getElementById('msg').style.marginTop = "50px";
+    document.getElementById('msg').style.marginTop = "20px";
+    document.getElementById('msg').style.marginBottom = "5px";
     fadeMessage();
 }
 

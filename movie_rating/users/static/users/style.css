@@ -244,6 +244,20 @@ nav{
     color: rgba(255,255,255,0.7);
 }
 
+.not-found{
+    color: white;
+}
+
+.actors-names{
+    font-size: 1.6em;
+    font-weight: 600;
+}
+
+.actors-names:hover{
+    text-decoration: none;
+    color: darkgray;
+}
+
 
 @media screen  and (max-width: 868px) {
     .details-box{

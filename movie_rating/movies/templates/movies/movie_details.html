@@ -8,6 +8,10 @@
 
 {% block head %}
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        html{overflow: hidden;}
+        body{margin: 1rem;}
+    </style>
 {% endblock %}
 
 {% block content %}
@@ -19,12 +23,28 @@
             <div class="details-info">
 
                 <div class="details-sub-info">
-                    <span>{{ movie.genres_name_eg }}</span>
+
+                    {% if movie.genres_name_eg|length != 0 %}
+                        <span>{{ movie.genres_name_eg }}</span>
+                    {% else %}
+                        <span>No genres available</span>
+                    {% endif %}
+
                     <span>{{ movie.movieinfo.country }}</span>
                     <span>{{ movie.movieinfo.date }}</span>
+
+                    {% for actor in actors %}
+                        <a class="actors-names" href="{{ actor.1 }}" target="_blank"> {{ actor.0 }}</a>
+                    {% endfor %}
                 </div>
                 <h1 class="details-title">{{ movie.name_eg }}</h1>
-                <p class="details-summary">{{ movie.movieinfo.plot }}</p>
+
+                {% if movie.movieinfo.plot|length != 0 %}
+                    <p class="details-summary">{{ movie.movieinfo.plot }}</p>
+                {% else %}
+                    <h2 class="not-found">No plot available</h2>
+                {% endif %}
+
                 <fieldset>
                     <input type="range" class="range_star" id="rating" name="{{ movie.name_eg }}" min="0" max="5" step="0.5" value="{{ rating }}">
                     <output style="color:white; font-size: 20px;" class="textInput"></output>
