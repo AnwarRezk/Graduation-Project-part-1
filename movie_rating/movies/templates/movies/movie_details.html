@@ -34,7 +34,7 @@
                     <span>{{ movie.movieinfo.date }}</span>
 
                     {% for actor in actors %}
-                        <a class="actors-names" href="{{ actor.1 }}" target="_blank"> {{ actor.0 }}</a>
+                        <a class="actors-names" href="../../search/results/?actors={{ actor.0 }}" target="_blank"> {{ actor.0 }}</a>
                     {% endfor %}
                 </div>
                 <h1 class="details-title">{{ movie.name_eg }}</h1>
