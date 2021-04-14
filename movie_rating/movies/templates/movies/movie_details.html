@@ -32,12 +32,17 @@
 
                     <span>{{ movie.movieinfo.country }}</span>
                     <span>{{ movie.movieinfo.date }}</span>
-
-                    {% for actor in actors %}
-                        <a class="actors-names" href="../../search/results/?actors={{ actor.0 }}" target="_blank"> {{ actor.0 }}</a>
+                    
+                    {% for actor in actors|slice:":-1" %}
+                        <a class="actors-names" href="../../search/results/?actors={{ actor.0 }}" target="_blank"> {{ actor.0 }}, </a>
                     {% endfor %}
+
+                    {% for actor in actors|slice:"-1:" %}
+                    <a class="actors-names" href="../../search/results/?actors={{ actor.0 }}" target="_blank"> {{ actor.0 }}</a>
+                    {% endfor %}
+
                 </div>
-                <h1 class="details-title">{{ movie.name_eg }}</h1>
+                <h1 class="details-title">{{ movie.name_eg }} | {{ movie.name_ar }}</h1>
 
                 {% if movie.movieinfo.plot|length != 0 %}
                     <p class="details-summary">{{ movie.movieinfo.plot }}</p>
