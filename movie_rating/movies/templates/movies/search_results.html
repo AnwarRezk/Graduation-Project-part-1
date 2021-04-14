@@ -25,7 +25,7 @@
                             <div class="card">
                                 <div class="card-header" style="background: url({{ result.0.poster_url }}); background-size: cover;"></div>
                                 <div class="card-body">
-                                    <a class="card-title" href="{% url 'movie-details' result.0.id %}" title="Show movie details">{{result.0.name_eg }}</a>
+                                    <a class="card-title" href="{% url 'movie-details' result.0.id %}" title="Show movie details">{{result.0.name_eg }} | {{result.0.name_ar }} </a>
                                     <div class="star-ratings"><span id="{{result.0.name_eg }} rating-value" class="rating-value">{{ result.0.final_rating|floatformat }}</span>/5</div>
                                     <div class="card-movie-info">
                                         <div class="movie-genres">
