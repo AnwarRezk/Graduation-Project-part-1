@@ -277,3 +277,56 @@ nav{
         transform: translate(0, -8em);
     }
 }
+
+.image__overlay {
+    position: absolute;
+    top: 35%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    color: #ffffff;
+    font-family: 'Quicksand', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.25s;
+}
+
+.image__overlay--blur {
+    backdrop-filter: blur(5px);
+}
+
+.image__overlay--primary {
+    background: transparent;
+}
+
+.image__overlay > * {
+    transform: translateY(20px);
+    transition: transform 0.25s;
+}
+
+.image__overlay:hover {
+    opacity: 1;
+}
+
+.image__overlay:hover > * {
+    transform: translateY(0);
+}
+
+.image__title {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: white;
+}
+
+.image__title a{
+    color: white;
+    text-decoration: none;
+    text-transform: capitalize;
+}
+
+.image__title a:hover{
+    color: darkgray;
+}
