@@ -21,8 +21,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 .then(res => {
                     if (res.status === "OK") {
                         window.scrollTo(0, 0);
-                        alert("Your rating has been saved");
-
+                        flashMessage(res.message);
+                        
                         if (sessionStorage.getItem(rating.getAttribute("name"))) {
                             sessionStorage.removeItem(rating.getAttribute("name"));
                         }

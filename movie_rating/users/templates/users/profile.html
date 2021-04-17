@@ -52,24 +52,30 @@
         </form>
     </div>
 
-    <div class = "content-section ratings" >
-        <legend class="border-bottom mb-4">Your Rated Movies</legend>
-        <!-- The posters will be dummy for now -->
-        {% if user_ratings|length == 0 %}
+        <div class = "content-section ratings" >
+            <legend class="border-bottom mb-4">Your Rated Movies</legend>
+            {% if user_ratings|length == 0 %}
             <h4>No Rated Movies Yet!</h4>
-        {% else %}
+            {% else %}
             <div class="owl-carousel owl-theme">
                 {% for user_rating in user_ratings %}
-                    <div class="item">
-                    <a class="card-title" href="{% url 'movie-details' user_rating.movie.id %}"
-                        title="Show movie details">
-                        <img class="img-cover" src= "{{ user_rating.movie.poster_url }}" alt="{{ user_rating.movie.name_eg }}">
-                    </a>
+                <div class="item">
+                    <div class="card">
+                        <div class="card-header"
+                            style="background: url({{ user_rating.movie.poster_url }}); background-size: cover;">
+                        </div>
+                        <div class="card-body" style="height: 90px;">
+                            <a class="card-title" href="{% url 'movie-details' user_rating.movie.id %}"
+                                title="Show movie details">{{user_rating.movie.name_eg }} | {{user_rating.movie.name_ar}}</a>
+
+                        
+                        </div>
                     </div>
+                </div>
                 {% endfor %}
             </div>
-        {% endif %}
-    </div>
+            {% endif %}
+        </div>
 
     <!-- Script for triggering the flickity package -->
     <script>
