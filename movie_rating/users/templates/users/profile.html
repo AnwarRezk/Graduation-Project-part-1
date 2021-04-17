@@ -61,13 +61,10 @@
             <div class="owl-carousel owl-theme">
                 {% for user_rating in user_ratings %}
                     <div class="item">
+                    <a class="card-title" href="{% url 'movie-details' user_rating.movie.id %}"
+                        title="Show movie details">
                         <img class="img-cover" src= "{{ user_rating.movie.poster_url }}" alt="{{ user_rating.movie.name_eg }}">
-{#                                                                <a class="card-title" href="{% url 'movie-details' user_rating.movie.id %}"#}
-{#                                                                    title="Show movie details">{{user_rating.movie.name_eg }} | {{user_rating.movie.name_ar}}</a>#}
-                        <div class="image__overlay image__overlay--primary">
-                            <div class="image__title"><a title="Show movie details" href="{% url 'movie-details' user_rating.movie.id %}">{{user_rating.movie.name_eg }} | {{user_rating.movie.name_ar}}</a></div>
-                        </div>
-
+                    </a>
                     </div>
                 {% endfor %}
             </div>
