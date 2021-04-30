@@ -7,7 +7,6 @@
 {% endblock %}
 
 {% block head %}
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         html{overflow: hidden;}
         body{margin: 1rem;}
@@ -33,13 +32,17 @@
                     <span>{{ movie.movieinfo.country }}</span>
                     <span>{{ movie.movieinfo.date }}</span>
                     
-                    {% for actor in actors|slice:":-1" %}
-                        <a class="actors-names" href="../../search/results/?actors={{ actor.0 }}"> {{ actor.0 }}, </a>
-                    {% endfor %}
+                    {% if actors|length != 0 %}
+                        {% for actor in actors|slice:":-1" %}
+                            <a class="actors-names" href="../../search/results/?actors={{ actor.0 }}"> {{ actor.0 }}, </a>
+                        {% endfor %}
 
-                    {% for actor in actors|slice:"-1:" %}
-                    <a class="actors-names" href="../../search/results/?actors={{ actor.0 }}"> {{ actor.0 }}</a>
-                    {% endfor %}
+                        {% for actor in actors|slice:"-1:" %}
+                        <a class="actors-names" href="../../search/results/?actors={{ actor.0 }}"> {{ actor.0 }}</a>
+                        {% endfor %}
+                    {% else %}
+                        <span>No information about actors available</span>
+                    {% endif %}
 
                 </div>
                 <h1 class="details-title">{{ movie.name_eg }} | {{ movie.name_ar }}</h1>
