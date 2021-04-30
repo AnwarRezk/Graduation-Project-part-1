@@ -184,8 +184,12 @@ def movie_details(request, pk):
             rating = user_ratings[user_rated_movies.index(movie)].rating
         else:
             rating = 0
+            
+        actors = []
         
-        actors = [(name, image) for name, image in zip(movie.actors_name_eg.split(', '), movie.movieinfo.actors_urls.split(', '))]
+        if (movie.actors_name_eg is not None) and (movie.movieinfo.actors_urls is not None):
+        
+            actors = [(name, image) for name, image in zip(movie.actors_name_eg.split(', '), movie.movieinfo.actors_urls.split(', '))]
             
         context = {
             "movie": movie,
