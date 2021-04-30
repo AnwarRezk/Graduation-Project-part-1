@@ -17,6 +17,12 @@ body {
     /*margin-bottom: 60px;*/
 }
 
+@media screen and (max-width: 576px) {
+    .content-section.ratings{
+        width: 100%;
+    }
+}
+
 .account-img {
     height: 125px;
     width: 125px;
@@ -116,7 +122,6 @@ nav{
 }
 
 .card-title {
-    font-size: 18px;
     margin: 0;
     display: table-cell;
     text-transform: capitalize;
@@ -258,6 +263,9 @@ nav{
     color: darkgray;
 }
 
+#hint_id_username{
+    color: white !important;
+}
 
 @media screen  and (max-width: 868px) {
     .details-box{
