@@ -8,11 +8,9 @@ window.addEventListener("DOMContentLoaded", () => {
         range.addEventListener("change", (event) => {
             if (parseFloat(event.target.value) !== parseFloat(event.target.oldvalue)) {
                 changedMovies[event.target.name] = event.target.name;
-                console.dir(changedMovies);
             }
             else if (changedMovies[event.target.name]) {
                 delete changedMovies[event.target.name];
-                console.dir(changedMovies);
             }
         });
     }
