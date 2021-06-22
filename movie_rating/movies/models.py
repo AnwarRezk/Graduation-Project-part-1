@@ -15,7 +15,10 @@ class Movie(models.Model):
 	genres_name_eg = models.CharField(max_length=200,blank=True,null=True)
 	genres_name_ar = models.CharField(max_length=200,blank=True,null=True)
 
-	poster_url = models.URLField(blank=True)
+	poster_url = models.URLField(blank=True, null=True)
+
+	date = models.IntegerField(default=1900, validators=[MinValueValidator(1900), MaxValueValidator(3000)])
+
 
 	# rating calculated using imdb formula
 	final_rating = models.FloatField(default=0,validators=[MinValueValidator(0), MaxValueValidator(5)])
@@ -27,9 +30,8 @@ class MovieInfo(models.Model):
 
 	movie = models.OneToOneField(Movie, primary_key=True, on_delete=models.CASCADE)
 
-	date = models.IntegerField(default=1900,validators=[MinValueValidator(1900), MaxValueValidator(3000)])
 	
-	country = models.CharField(max_length=40,blank=True)
+	country = models.CharField(max_length=40,blank=True,null=True)
 
 	# gatherd from egybest
 	rating = models.FloatField(default=0,validators=[MinValueValidator(0), MaxValueValidator(5)])

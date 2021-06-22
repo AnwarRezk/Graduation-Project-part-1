@@ -40,8 +40,9 @@ def home(request):
         return redirect('home')
         
     else:
-        movies_info = MovieInfo.objects.all().order_by('-date')[:100]
-        l_m = [info.movie for info in movies_info]
+        #movies_info = MovieInfo.objects.all().order_by('-date')[:100]
+        #l_m = [info.movie for info in movies_info]
+        l_m = list(Movie.objects.all().order_by('-date')[:100])
         p_m = list(Movie.objects.all().order_by('-final_rating')[:100])
         
         latest_movies = []

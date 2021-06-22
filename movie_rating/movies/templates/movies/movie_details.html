@@ -30,7 +30,7 @@
                     {% endif %}
 
                     <span>{{ movie.movieinfo.country }}</span>
-                    <span>{{ movie.movieinfo.date }}</span>
+                    <span>{{ movie.date }}</span>
                     
                     {% if actors|length != 0 %}
                         {% for actor in actors|slice:":-1" %}
