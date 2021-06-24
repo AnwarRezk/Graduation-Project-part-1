@@ -18,7 +18,8 @@ class Movie(models.Model):
 	poster_url = models.URLField(blank=True, null=True)
 
 	date = models.IntegerField(default=1900, validators=[MinValueValidator(1900), MaxValueValidator(3000)])
-
+	
+	is_english = models.BooleanField(default=True)
 
 	# rating calculated using imdb formula
 	final_rating = models.FloatField(default=0,validators=[MinValueValidator(0), MaxValueValidator(5)])
