@@ -188,9 +188,9 @@ def movie_details(request, pk):
             
         actors = []
         
-        if (movie.actors_name_eg is not None) and (movie.movieinfo.actors_urls is not None):
+        if (movie.actors_name_eg is not None):
         
-            actors = [(name, image) for name, image in zip(movie.actors_name_eg.split(', '), movie.movieinfo.actors_urls.split(', '))]
+            actors = movie.actors_name_eg.split(', ')
             
         context = {
             "movie": movie,
