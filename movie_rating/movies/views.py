@@ -42,31 +42,48 @@ def home(request):
     else:
         #movies_info = MovieInfo.objects.all().order_by('-date')[:100]
         #l_m = [info.movie for info in movies_info]
-        l_m = list(Movie.objects.all().order_by('-date')[:100])
-        p_m = list(Movie.objects.all().order_by('-final_rating')[:100])
+        l_m_english = list(Movie.objects.filter(is_english=True).order_by('-date')[:100])
+        p_m_english = list(Movie.objects.filter(is_english=True).order_by('-final_rating')[:100])
+        l_m_arabic = list(Movie.objects.filter(is_english=False).order_by('-date')[:100])
+        p_m_arabic = list(Movie.objects.filter(is_english=False).order_by('-final_rating')[:100])
         
-        latest_movies = []
-        popular_movies = []
+        latest_movies_english = []
+        popular_movies_english = []
+        latest_movies_arabic = []
+        popular_movies_arabic = []
         
         # Remove the duplicates between the latest movies and the rated movies
-        for movie in l_m:
+        for movie in l_m_english:
             if movie not in user_rated_movies:
-                latest_movies.insert(len(latest_movies), movie)
-            if len(latest_movies) == 20:
+                latest_movies_english.insert(len(latest_movies_english), movie)
+            if len(latest_movies_english) == 20:
+                break
+        
+        for movie in l_m_arabic:
+            if movie not in user_rated_movies:
+                latest_movies_arabic.insert(len(latest_movies_arabic), movie)
+            if len(latest_movies_arabic) == 20:
                 break
         
         # Remove the duplicates between the popular movies and the latest movies, and the rated movies
-        for movie in p_m:
-            if (movie not in user_rated_movies) and (movie not in latest_movies):
-                popular_movies.insert(len(popular_movies), movie)
+        for movie in p_m_english:
+            if (movie not in user_rated_movies) and (movie not in latest_movies_english):
+                popular_movies_english.insert(len(popular_movies_english), movie)
+        
+        for movie in p_m_arabic:
+            if (movie not in user_rated_movies) and (movie not in latest_movies_arabic):
+                popular_movies_arabic.insert(len(popular_movies_arabic), movie)
         
         num_samples = 20
-        popular_movies = random.sample(popular_movies, num_samples)
+        popular_movies_english = random.sample(popular_movies_english, num_samples)
+        popular_movies_arabic = random.sample(popular_movies_arabic, num_samples)
         
         context = {
             'user_ratings': user_ratings,
-            'latest_movies': latest_movies,
-            'popular_movies': popular_movies
+            'latest_movies_english': latest_movies_english,
+            'popular_movies_english': popular_movies_english,
+            'latest_movies_arabic': latest_movies_arabic,
+            'popular_movies_arabic': popular_movies_arabic
         }
         
         return render(request, 'movies/home.html', context)
