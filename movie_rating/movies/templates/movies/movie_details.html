@@ -34,11 +34,11 @@
                     
                     {% if actors|length != 0 %}
                         {% for actor in actors|slice:":-1" %}
-                            <a class="actors-names" href="../../search/results/?actors={{ actor.0 }}"> {{ actor.0 }}, </a>
+                            <a class="actors-names" href="../../search/results/?actors={{ actor }}"> {{ actor }}, </a>
                         {% endfor %}
 
                         {% for actor in actors|slice:"-1:" %}
-                        <a class="actors-names" href="../../search/results/?actors={{ actor.0 }}"> {{ actor.0 }}</a>
+                        <a class="actors-names" href="../../search/results/?actors={{ actor }}"> {{ actor }}</a>
                         {% endfor %}
                     {% else %}
                         <span>No information about actors available</span>
