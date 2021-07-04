@@ -8,6 +8,7 @@ from django.http import JsonResponse
 from .models import *
 import json
 import random
+from movie_rating.models import Recommendation_Fun
 
 # Create your views here.
 
@@ -168,6 +169,11 @@ def movie_details(request, pk):
     user_ratings = current_user.user_rating_set.all()
     user_rated_movies = [rating.movie for rating in user_ratings]
     movie = get_object_or_404(Movie, pk=pk)
+    
+    # Getting recommendations from 1st model
+    
+    collaborative_movies = Recommendation_Fun.recommend_fun(4306)
+    print(collaborative_movies)
     
     if movie in user_rated_movies:
         movie_is_rated = True

@@ -15,7 +15,6 @@ import django_heroku
 # import json
 import os
 from django.contrib.messages import constants as messages
-from movie_rating.models import trained
 import time
 import math
 import numpy as np
@@ -31,18 +30,21 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 """
 Reading Machine Learning Data files
 """
-movie_user_mat_csv= BASE_DIR / 'models/Data/movie_user_mat.csv'
+movie_user_mat_csv= BASE_DIR / 'movie_rating/models/Data/movie_user_mat.csv'
 
-movie_user_mat = pd.read_csv(movie_user_mat_csv, index_col=0)
+MOVIE_USER_MAT = pd.read_csv(movie_user_mat_csv, index_col=0)
 
-df_inner_movies_links_csv= BASE_DIR / 'models/Data/movies_links.csv'
+df_inner_movies_links_csv= BASE_DIR / 'movie_rating/models/Data/movies_links.csv'
 
-df_inner_movies_links = pd.read_csv(df_inner_movies_links_csv)
+DF_INNER_MOVIES_LINKS = pd.read_csv(df_inner_movies_links_csv)
 
 SVD = TruncatedSVD(n_components=12, random_state=5)
-resultant_matrix = SVD.fit_transform(movie_user_mat)
+resultant_matrix = SVD.fit_transform(MOVIE_USER_MAT)
 
-corr_mat = np.corrcoef(resultant_matrix)
+CORR_MAT = np.corrcoef(resultant_matrix)
+"""
+Done reading Machine Learning Data files
+"""
 
 #Read secrets file
 # with open('../secrets.json', 'r') as file:

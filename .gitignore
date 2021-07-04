@@ -3,7 +3,7 @@ secrets.json
 .venv
 .vscode
 staticfiles/
-models/Data/
+movie_rating/movie_rating/models/Data/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
