@@ -15,9 +15,34 @@ import django_heroku
 # import json
 import os
 from django.contrib.messages import constants as messages
+from movie_rating.models import trained
+import time
+import math
+import numpy as np
+import pandas as pd
+from scipy.sparse import csr_matrix
+from sklearn.neighbors import NearestNeighbors
+import sklearn
+from sklearn.decomposition import TruncatedSVD
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+"""
+Reading Machine Learning Data files
+"""
+movie_user_mat_csv= BASE_DIR / 'models/Data/movie_user_mat.csv'
+
+movie_user_mat = pd.read_csv(movie_user_mat_csv, index_col=0)
+
+df_inner_movies_links_csv= BASE_DIR / 'models/Data/movies_links.csv'
+
+df_inner_movies_links = pd.read_csv(df_inner_movies_links_csv)
+
+SVD = TruncatedSVD(n_components=12, random_state=5)
+resultant_matrix = SVD.fit_transform(movie_user_mat)
+
+corr_mat = np.corrcoef(resultant_matrix)
 
 #Read secrets file
 # with open('../secrets.json', 'r') as file:

@@ -3,7 +3,7 @@ secrets.json
 .venv
 .vscode
 staticfiles/
-models/
+models/Data/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
