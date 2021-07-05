@@ -4,6 +4,8 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from movie_rating.models import Recommendation_Fun
+from movies.models import Movie
 
 # Create your views here.
 
@@ -73,12 +75,31 @@ def profile(request):
     else:
         u_form = UserUpdateForm(instance=current_user)
         p_form = ProfileUpdateForm(instance=current_user.profile)
+        
+    user_ratings = current_user.user_rating_set.all()
+    user_rated_movies = [rating.movie for rating in user_ratings]
+    collaborative_movies = []
+    
+    for movie in user_rated_movies:
+        if movie.is_english:
+            collab_movies = Recommendation_Fun.recommend_fun(movie.id)["Movies"]
+            for mov in collab_movies:
+                if mov not in collaborative_movies:
+                    collaborative_movies.insert(len(collaborative_movies), mov)
+        else:
+            collab_movies = Recommendation_Fun.recommend_fun(movie.id)["Movies"]
+            for mov in collab_movies:
+                if mov not in collaborative_movies:
+                    collaborative_movies.insert(len(collaborative_movies), mov)
+    
+    total_collaborative_movies = [Movie.objects.get(id=i) for i in collaborative_movies]
     
     context = {
         'USER': backup_user,
         'u_form': u_form,
         'p_form': p_form,
-        'user_ratings': current_user.user_rating_set.all()
+        'user_ratings': user_ratings,
+        'collaborative_movies': total_collaborative_movies
     }
         
     return render(request, 'users/profile.html', context)
