@@ -9,8 +9,7 @@ from .models import *
 import json
 import random
 from movie_rating.models import Recommendation_Fun
-
-# Create your views here.
+from movie_rating.models import ML_English
 
 @login_required
 def home(request):
@@ -170,11 +169,6 @@ def movie_details(request, pk):
     user_rated_movies = [rating.movie for rating in user_ratings]
     movie = get_object_or_404(Movie, pk=pk)
     
-    # Getting recommendations from 1st model
-    
-    collaborative_movies = Recommendation_Fun.recommend_fun(4306)
-    print(collaborative_movies)
-    
     if movie in user_rated_movies:
         movie_is_rated = True
     
@@ -208,6 +202,17 @@ def movie_details(request, pk):
             rating = user_ratings[user_rated_movies.index(movie)].rating
         else:
             rating = 0
+        
+        # Getting recommendations
+    
+        if movie.is_english:
+            collab_movies = Recommendation_Fun.recommend_fun(pk)["Movies"]
+            collaborative_movies = [Movie.objects.get(id=i) for i in collab_movies]
+            
+            cont_movies = ML_English.get_recommendations(movie.name_eg).tolist()
+            content_movies = [Movie.objects.get(id=i) for i in cont_movies]
+        else:
+            pass
             
         actors = []
         
@@ -218,7 +223,9 @@ def movie_details(request, pk):
         context = {
             "movie": movie,
             "rating": rating,
-            "actors": actors
+            "actors": actors,
+            "collaborative_movies": collaborative_movies,
+            "content_movies": content_movies
         }
         
         return render(request, 'movies/movie_details.html', context)

@@ -23,12 +23,13 @@ from scipy.sparse import csr_matrix
 from sklearn.neighbors import NearestNeighbors
 import sklearn
 from sklearn.decomposition import TruncatedSVD
+import pickle
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 """
-Reading Machine Learning Data files
+Reading Machine Learning Model 1 Data files
 """
 movie_user_mat_csv= BASE_DIR / 'movie_rating/models/Data/movie_user_mat.csv'
 
@@ -43,7 +44,24 @@ resultant_matrix = SVD.fit_transform(MOVIE_USER_MAT)
 
 CORR_MAT = np.corrcoef(resultant_matrix)
 """
-Done reading Machine Learning Data files
+Done reading Machine Learning Model 1 Data files
+"""
+
+"""
+Reading Machine Learning Model 2 Data files
+"""
+infile1 = open(BASE_DIR / "movie_rating/models/Data/English_indices", 'rb')
+IDX_WEIGHTS_UPDATED = pickle.load(infile1)
+infile1.close()
+
+infile2 = open(BASE_DIR / "movie_rating/models/Data/English_Cosine_Weights", 'rb')
+COSINE_SIM = pickle.load(infile2)
+infile2.close()
+
+movies_csv = BASE_DIR / "movie_rating/models/Data/English_movies_df.csv"
+MOVIES_DF = pd.read_csv(movies_csv)
+"""
+Done reading Machine Learning Model 2 Data files
 """
 
 #Read secrets file
