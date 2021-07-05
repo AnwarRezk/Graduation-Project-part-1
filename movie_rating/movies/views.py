@@ -10,6 +10,7 @@ import json
 import random
 from movie_rating.models import Recommendation_Fun
 from movie_rating.models import ML_English
+from movie_rating.models import ML_Arabic
 
 @login_required
 def home(request):
@@ -209,10 +210,14 @@ def movie_details(request, pk):
             collab_movies = Recommendation_Fun.recommend_fun(pk)["Movies"]
             collaborative_movies = [Movie.objects.get(id=i) for i in collab_movies]
             
-            cont_movies = ML_English.get_recommendations(movie.name_eg).tolist()
+            cont_movies = ML_English.get_recommendations(movie.name_eg)
             content_movies = [Movie.objects.get(id=i) for i in cont_movies]
         else:
-            pass
+            collab_movies = Recommendation_Fun.recommend_fun(pk)["Movies"]
+            collaborative_movies = [Movie.objects.get(id=i) for i in collab_movies]
+            
+            cont_movies = ML_Arabic.recommend_engine(movie.name_eg)
+            content_movies = [Movie.objects.get(id=i) for i in cont_movies]
             
         actors = []
         

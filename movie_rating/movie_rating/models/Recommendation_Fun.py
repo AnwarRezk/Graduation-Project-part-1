@@ -18,4 +18,4 @@ def recommend_fun(id):
         return recommendation_with_titles.to_dict(orient="list")
     except:
         # print("No movie Recommendations")
-        return "No movie Recommendations"
+        return {"Movies": []}

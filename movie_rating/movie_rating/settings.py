@@ -43,6 +43,8 @@ SVD = TruncatedSVD(n_components=12, random_state=5)
 resultant_matrix = SVD.fit_transform(MOVIE_USER_MAT)
 
 CORR_MAT = np.corrcoef(resultant_matrix)
+
+# Arabic Files
 """
 Done reading Machine Learning Model 1 Data files
 """
@@ -60,6 +62,19 @@ infile2.close()
 
 movies_csv = BASE_DIR / "movie_rating/models/Data/English_movies_df.csv"
 MOVIES_DF = pd.read_csv(movies_csv)
+
+# Arabic Files
+
+infile1 = open(BASE_DIR / "movie_rating/models/Data/Arabic_indices", 'rb')
+AINDICES = pickle.load(infile1)
+infile1.close()
+
+infile2 = open(BASE_DIR / "movie_rating/models/Data/Arabic_Cosine_Weights", 'rb')
+ACOS_SIM = pickle.load(infile2)
+infile2.close()
+
+movies_csv = BASE_DIR / "movie_rating/models/Data/Arabic_movies_df.csv"
+AMOVIES_DF = pd.read_csv(movies_csv)
 """
 Done reading Machine Learning Model 2 Data files
 """
