@@ -31,6 +31,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 """
 Reading Machine Learning Model 1 Data files
 """
+# English files
+
 movie_user_mat_csv= BASE_DIR / 'movie_rating/models/Data/movie_user_mat.csv'
 
 MOVIE_USER_MAT = pd.read_csv(movie_user_mat_csv, index_col=0)
@@ -45,6 +47,19 @@ resultant_matrix = SVD.fit_transform(MOVIE_USER_MAT)
 CORR_MAT = np.corrcoef(resultant_matrix)
 
 # Arabic Files
+
+camovie_user_mat_csv= BASE_DIR / 'movie_rating/models/Data/movie_user_mat_arabic.csv'
+camovies_csv= BASE_DIR / 'movie_rating/models/Data/movies.csv'
+CAMOVIES_DF = pd.read_csv(camovies_csv)
+CAMOVIE_USER_MAT = pd.read_csv(camovie_user_mat_csv, index_col=0)
+
+sample = np.array([[0,0,3,0,0],[4,0,0,0,2],[0,0,0,0,1]])
+sparsity = 1.0 - ( np.count_nonzero(sample) / float(sample.size) )
+csr_sample = csr_matrix(sample)
+CSR_DATA = csr_matrix(CAMOVIE_USER_MAT.values)
+CAMOVIE_USER_MAT.reset_index(inplace=True)
+KNN = NearestNeighbors(metric='cosine', algorithm='brute', n_neighbors=20, n_jobs=-1)
+caresultant_matrix = KNN.fit(CSR_DATA)
 """
 Done reading Machine Learning Model 1 Data files
 """
@@ -52,6 +67,8 @@ Done reading Machine Learning Model 1 Data files
 """
 Reading Machine Learning Model 2 Data files
 """
+# English files
+
 infile1 = open(BASE_DIR / "movie_rating/models/Data/English_indices", 'rb')
 IDX_WEIGHTS_UPDATED = pickle.load(infile1)
 infile1.close()

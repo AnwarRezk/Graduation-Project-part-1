@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from movie_rating.models import Recommendation_Fun
+from movie_rating.models import ArabicRecommendation_Fun
 from movies.models import Movie
 
 # Create your views here.
@@ -87,12 +88,12 @@ def profile(request):
                 if mov not in collaborative_movies:
                     collaborative_movies.insert(len(collaborative_movies), mov)
         else:
-            collab_movies = Recommendation_Fun.recommend_fun(movie.id)["Movies"]
+            collab_movies = ArabicRecommendation_Fun.get_movie_recommendation(movie.name_eg)["Title"]
             for mov in collab_movies:
                 if mov not in collaborative_movies:
                     collaborative_movies.insert(len(collaborative_movies), mov)
     
-    total_collaborative_movies = [Movie.objects.get(id=i) for i in collaborative_movies]
+    total_collaborative_movies = [Movie.objects.get(id=i) if type(i) is int else Movie.objects.get(name_eg=i) for i in collaborative_movies]
     
     context = {
         'USER': backup_user,

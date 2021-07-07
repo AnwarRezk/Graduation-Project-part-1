@@ -9,6 +9,7 @@ from .models import *
 import json
 import random
 from movie_rating.models import Recommendation_Fun
+from movie_rating.models import ArabicRecommendation_Fun
 from movie_rating.models import ML_English
 from movie_rating.models import ML_Arabic
 
@@ -213,9 +214,9 @@ def movie_details(request, pk):
             cont_movies = ML_English.get_recommendations(movie.name_eg)
             content_movies = [Movie.objects.get(id=i) for i in cont_movies]
         else:
-            collab_movies = Recommendation_Fun.recommend_fun(pk)["Movies"]
-            collaborative_movies = [Movie.objects.get(id=i) for i in collab_movies]
-            
+            collab_movies = ArabicRecommendation_Fun.get_movie_recommendation(movie.name_eg)["Title"]
+            collaborative_movies = [Movie.objects.get(name_eg=title) for title in collab_movies]
+
             cont_movies = ML_Arabic.recommend_engine(movie.name_eg)
             content_movies = [Movie.objects.get(id=i) for i in cont_movies]
             
