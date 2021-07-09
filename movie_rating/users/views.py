@@ -83,7 +83,7 @@ def profile(request):
     
     for movie in user_rated_movies:
         if movie.is_english:
-            collab_movies = Recommendation_Fun.recommend_fun(movie.id)["Movies"]
+            collab_movies = Recommendation_Fun.recommend_fun(movie.id)["id"]
             for mov in collab_movies:
                 if mov not in collaborative_movies:
                     collaborative_movies.insert(len(collaborative_movies), mov)
@@ -93,8 +93,22 @@ def profile(request):
                 if mov not in collaborative_movies:
                     collaborative_movies.insert(len(collaborative_movies), mov)
     
-    total_collaborative_movies = [Movie.objects.get(id=i) if type(i) is int else Movie.objects.get(name_eg=i) for i in collaborative_movies]
-    
+    total_collaborative_movies = []
+
+    for i in collaborative_movies:
+        if type(i) is float:
+            try:
+                mv = Movie.objects.get(id=i)
+                total_collaborative_movies.insert(len(total_collaborative_movies), mv)
+            except Movie.DoesNotExist:
+                pass
+        else:
+            try:
+                mv = Movie.objects.get(name_eg=i)
+                total_collaborative_movies.insert(len(total_collaborative_movies), mv)
+            except Movie.DoesNotExist:
+                pass
+
     context = {
         'USER': backup_user,
         'u_form': u_form,

@@ -208,17 +208,45 @@ def movie_details(request, pk):
         # Getting recommendations
     
         if movie.is_english:
-            collab_movies = Recommendation_Fun.recommend_fun(pk)["Movies"]
-            collaborative_movies = [Movie.objects.get(id=i) for i in collab_movies]
+            collab_movies = Recommendation_Fun.recommend_fun(pk)["id"]
+            collaborative_movies = []
+            
+            for i in collab_movies:
+                try:
+                    mv = Movie.objects.get(id=i)
+                    collaborative_movies.insert(len(collaborative_movies), mv)
+                except Movie.DoesNotExist:
+                    pass
             
             cont_movies = ML_English.get_recommendations(movie.name_eg)
-            content_movies = [Movie.objects.get(id=i) for i in cont_movies]
+            content_movies = []
+            
+            for i in cont_movies:
+                try:
+                    mv = Movie.objects.get(id=i)
+                    content_movies.insert(len(content_movies), mv)
+                except Movie.DoesNotExist:
+                    pass
         else:
             collab_movies = ArabicRecommendation_Fun.get_movie_recommendation(movie.name_eg)["Title"]
-            collaborative_movies = [Movie.objects.get(name_eg=title) for title in collab_movies]
+            collaborative_movies = []
+            
+            for title in collab_movies:
+                try:
+                    mv = Movie.objects.get(name_eg=title)
+                    collaborative_movies.insert(len(collaborative_movies), mv)
+                except Movie.DoesNotExist:
+                    pass
 
             cont_movies = ML_Arabic.recommend_engine(movie.name_eg)
-            content_movies = [Movie.objects.get(id=i) for i in cont_movies]
+            content_movies = []
+            
+            for i in cont_movies:
+                try:
+                    mv = Movie.objects.get(id=i)
+                    content_movies.insert(len(content_movies), mv)
+                except Movie.DoesNotExist:
+                    pass
             
         actors = []
         
