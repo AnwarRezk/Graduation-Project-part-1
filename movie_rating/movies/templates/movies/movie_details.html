@@ -3,76 +3,128 @@
 {% load static %}
 
 {% block title %}
-    Movie Details
+Movie Details
 {% endblock %}
 
 {% block head %}
-    <style>
-        html{overflow: hidden;}
-        body{margin: 1rem;}
-    </style>
+<style>
+    html {
+        overflow: hidden;
+    }
+
+    body {
+        margin: 1rem;
+    }
+</style>
 {% endblock %}
 
 {% block content %}
-    <div class="details-container">
-        <div class="details-box">
-            <div class="details-img">
-                <img src="{{ movie.poster_url }}" alt="{{ movie.name_eg }}">
-            </div>
-            <div class="details-info">
+<div class="details-container">
+    <div class="details-box">
+        <div class="details-img">
+            <img src="{{ movie.poster_url }}" alt="{{ movie.name_eg }}">
+        </div>
+        <div class="details-info">
 
-                <div class="details-sub-info">
+            <div class="details-sub-info">
 
-                    {% if movie.genres_name_eg|length != 0 %}
-                        <span>{{ movie.genres_name_eg }}</span>
-                    {% else %}
-                        <span>No genres available</span>
-                    {% endif %}
-
-                    <span>{{ movie.movieinfo.country }}</span>
-                    <span>{{ movie.date }}</span>
-                    
-                    {% if actors|length != 0 %}
-                        {% for actor in actors|slice:":-1" %}
-                            <a class="actors-names" href="../../search/results/?actors={{ actor }}"> {{ actor }}, </a>
-                        {% endfor %}
-
-                        {% for actor in actors|slice:"-1:" %}
-                        <a class="actors-names" href="../../search/results/?actors={{ actor }}"> {{ actor }}</a>
-                        {% endfor %}
-                    {% else %}
-                        <span>No information about actors available</span>
-                    {% endif %}
-
-                </div>
-                <h1 class="details-title">{{ movie.name_eg }} | {{ movie.name_ar }}</h1>
-
-                {% if movie.movieinfo.plot|length != 0 %}
-                    <p class="details-summary">{{ movie.movieinfo.plot }}</p>
+                {% if movie.genres_name_eg|length != 0 %}
+                <span>{{ movie.genres_name_eg }}</span>
                 {% else %}
-                    <h2 class="not-found">No plot available</h2>
+                <span>No genres available</span>
                 {% endif %}
 
-                <fieldset>
-                    <input type="range" class="range_star" id="rating" name="{{ movie.name_eg }}" min="0" max="5" step="0.5" value="{{ rating }}">
-                    <output style="color:white; font-size: 20px;" class="textInput"></output>
-                </fieldset>
+                <span>{{ movie.movieinfo.country }}</span>
+                <span>{{ movie.date }}</span>
+
+                {% if actors|length != 0 %}
+                {% for actor in actors|slice:":-1" %}
+                <a class="actors-names" href="../../search/results/?actors={{ actor }}"> {{ actor }}, </a>
+                {% endfor %}
+
+                {% for actor in actors|slice:"-1:" %}
+                <a class="actors-names" href="../../search/results/?actors={{ actor }}"> {{ actor }}</a>
+                {% endfor %}
+                {% else %}
+                <span>No information about actors available</span>
+                {% endif %}
+
             </div>
+            <h1 class="details-title">{{ movie.name_eg }} | {{ movie.name_ar }}</h1>
 
+            {% if movie.movieinfo.plot|length != 0 %}
+            <p class="details-summary">{{ movie.movieinfo.plot }}</p>
+            {% else %}
+            <h2 class="not-found">No plot available</h2>
+            {% endif %}
+
+            <fieldset>
+                <input type="range" class="range_star" id="rating" name="{{ movie.name_eg }}" min="0" max="5" step="0.5"
+                    value="{{ rating }}">
+                <output style="color:white; font-size: 20px;" class="textInput"></output>
+            </fieldset>
         </div>
+
     </div>
+</div>
+
+<div class="content-section ratings">
+    <legend class="border-bottom mb-4">Your Rated Movies</legend>
+    {% if content_movies|length == 0 %}
+        <h4>No Recommended movies!</h4>
+    {% else %}
+    <div class="owl-carousel owl-theme">
+        {% for movie in content_movies %}
+        <div class="item">
+            <div class="card">
+                <div class="card-header" style="background: url({{ movie.poster_url }}); background-size: cover;">
+                </div>
+                <div class="card-body" style="height: 90px;">
+                    <a class="card-title" href="{% url 'movie-details' movie.id %}"
+                        title="Show movie details">{{ movie.name_eg }} | {{ movie.name_ar}}</a>
 
 
-    <script src="{% static 'movies/ajax_rate.js' %}"></script>
-    <script>
-        let i = document.querySelectorAll('.range_star'),
-            o = document.querySelectorAll('.textInput');
-        for(let j = 0; j< i.length; j++){
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+
+
+
+<script src="{% static 'movies/ajax_rate.js' %}"></script>
+<script>
+    let i = document.querySelectorAll('.range_star'),
+        o = document.querySelectorAll('.textInput');
+    for (let j = 0; j < i.length; j++) {
+        o[j].innerHTML = i[j].value;
+
+        i[j].addEventListener('input', function () {
             o[j].innerHTML = i[j].value;
+        }, false);
+    }
 
-            i[j].addEventListener('input', function () {
-                o[j].innerHTML = i[j].value;
-            }, false);
+    $('.owl-carousel').owlCarousel({
+        loop: false,
+        margin: 10,
+        responsiveClass: true,
+        responsive: {
+            0: {
+                items: 1,
+                nav: true,
+                pagination: false
+            },
+            500: {
+                items: 2,
+                nav: false
+            },
+            1000: {
+                items: 4,
+                nav: true,
+            }
         }
-    </script>
+    })
+</script>
 {% endblock %}
