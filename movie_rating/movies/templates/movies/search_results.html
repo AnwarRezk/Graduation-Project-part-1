@@ -4,77 +4,88 @@
 {% load static %}
 
 {% block title %}
-    Search Results
+Search Results
 {% endblock %}
 
 {% block head %}
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 {% endblock %}
 
 {% block content %}
-    <main class="container search_posters">
-        <legend class="border-bottom mb-4" style="color: white;">Search Results</legend>
-        {% if page_obj.object_list|length == 0 %}
-            <h3 class="no-results">No Results Found</h3>
-        {% else %}
-            <form id="form" method="POST">
-                {% csrf_token %}
-                <div class="row">
-                    {% for result in page_obj.object_list %}
-                        <div class="col-sm-4 col-md-4">
-                            <div class="card">
-                                <div class="card-header" style="background: url({{ result.0.poster_url }}); background-size: cover;"></div>
-                                <div class="card-body">
-                                    <a class="card-title" href="{% url 'movie-details' result.0.id %}" title="Show movie details">{{result.0.name_eg }} | {{result.0.name_ar }} </a>
-                                    <div class="star-ratings"><span id="{{result.0.name_eg }} rating-value" class="rating-value">{{ result.0.final_rating|floatformat }}</span>/5</div>
-                                    <div class="card-movie-info">
-                                        <div class="movie-genres">
-                                            <label>Genres</label>
-                                            {% if result.0.genres_name_eg|length == 0 %}
-                                            <span>Genres not available</span>
-                                            {% else %}
-                                            <span>{{ result.0.genres_name_eg }}</span>
-                                            {% endif %}
-                                            <label>Rate</label>
-                                            <fieldset>
-                                                <input type="range" class="range_star" name="{{ result.0.name_eg }}" min="0" max="5" step="0.5" value="{{ result.1 }}">
-                                                <output id="{{result.0.name_eg }} textInput" class="textInput"></output>
-                                            </fieldset>
-                                        </div>
-                                    </div>
-                                </div>
+<main class="container search_posters">
+    <legend class="border-bottom mb-4" style="color: white;">Search Results</legend>
+    {% if page_obj.object_list|length == 0 %}
+    <h3 class="no-results">No Results Found</h3>
+    {% else %}
+    <form id="form" method="POST">
+        {% csrf_token %}
+        <div class="row">
+            {% for result in page_obj.object_list %}
+            <div class="col-sm-4 col-md-4">
+                <div class="card">
+                    <div class="card-header"
+                        style="background: url({{ result.0.poster_url }}); background-size: cover;"></div>
+                    <div class="card-body">
+                        {% if result.0.is_english%}
+                        <a class="card-title" href="{% url 'movie-details' result.0.id %}"
+                            title="Show movie details">{{result.0.name_eg }}</a>
+                        {% else %}
+                        <a class="card-title" href="{% url 'movie-details' result.0.id %}"
+                            title="Show movie details">{{result.0.name_eg }} | {{result.0.name_ar }} </a>
+                        {% endif %}
+                        <div class="star-ratings"><span id="{{result.0.name_eg }} rating-value" class="rating-value">{{
+                                result.0.final_rating|floatformat }}</span>/5</div>
+                        <div class="card-movie-info">
+                            <div class="movie-genres">
+                                <label>Genres</label>
+                                {% if result.0.genres_name_eg|length == 0 %}
+                                <span>Genres not available</span>
+                                {% else %}
+                                <span>{{ result.0.genres_name_eg }}</span>
+                                {% endif %}
+                                <label>Rate</label>
+                                <fieldset>
+                                    <input type="range" class="range_star" name="{{ result.0.name_eg }}" min="0" max="5"
+                                        step="0.5" value="{{ result.1 }}">
+                                    <output id="{{result.0.name_eg }} textInput" class="textInput"></output>
+                                </fieldset>
                             </div>
                         </div>
-                    {% endfor %}
+                    </div>
                 </div>
-                <div class="btn-rating justify-content-center">
-                    <button type="submit" class="btn btn-success updateRate" value ="Rate">Submit Ratings</button>
-                </div>
-            </form>
-        {% endif %}
-
-        <!-- Implement Pagination -->
-        {% if is_paginated %}
-            {% if page_obj.has_previous %}
-                <a class="btn btn-outline-info mb-4" href="?{% url_replace request 'page' 1 %}">First</a>
-                <a class="btn btn-outline-info mb-4" href="?{% url_replace request 'page' page_obj.previous_page_number %}">Previous</a>
-            {% endif %}
-
-            {% for num in page_obj.paginator.page_range %}
-                {% if num == page_obj.number %}
-                    <a class="btn btn-info mb-4" href="?{% url_replace request 'page' num %}">{{ num }}</a>
-                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-                    <a class="btn btn-outline-info mb-4" href="?{% url_replace request 'page' num %}">{{ num }}</a>
-                {% endif %}
+            </div>
             {% endfor %}
+        </div>
+        <div class="btn-rating justify-content-center">
+            <button type="submit" class="btn btn-success updateRate" value="Rate">Submit Ratings</button>
+        </div>
+    </form>
+    {% endif %}
 
-            {% if page_obj.has_next %}
-                <a class="btn btn-outline-info mb-4" href="?{% url_replace request 'page' page_obj.next_page_number %}">Next</a>
-                <a class="btn btn-outline-info mb-4" href="?{% url_replace request 'page' page_obj.paginator.num_pages %}">Last</a>
-            {% endif %}
+    <!-- Implement Pagination -->
+    {% if is_paginated %}
+    {% if page_obj.has_previous %}
+    <a class="btn btn-outline-info mb-4" href="?{% url_replace request 'page' 1 %}">First</a>
+    <a class="btn btn-outline-info mb-4"
+        href="?{% url_replace request 'page' page_obj.previous_page_number %}">Previous</a>
+    {% endif %}
+
+    {% for num in page_obj.paginator.page_range %}
+    {% if num == page_obj.number %}
+    <a class="btn btn-info mb-4" href="?{% url_replace request 'page' num %}">{{ num }}</a>
+    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %} <a class="btn btn-outline-info mb-4"
+        href="?{% url_replace request 'page' num %}">{{ num }}</a>
         {% endif %}
-    </main>
+        {% endfor %}
 
-    <script src="{% static 'movies/search_session.js' %}"></script>
+        {% if page_obj.has_next %}
+        <a class="btn btn-outline-info mb-4" href="?{% url_replace request 'page' page_obj.next_page_number %}">Next</a>
+        <a class="btn btn-outline-info mb-4"
+            href="?{% url_replace request 'page' page_obj.paginator.num_pages %}">Last</a>
+        {% endif %}
+        {% endif %}
+</main>
+
+<script src="{% static 'movies/search_session.js' %}"></script>
 
 {% endblock %}
