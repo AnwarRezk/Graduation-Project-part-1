@@ -90,7 +90,7 @@ def profile(request):
 
     for movie in user_rated_movies:
         if movie.is_english:
-            collab_movies = Recommendation_Fun.recommend_fun(movie.id)["id"]
+            collab_movies = Recommendation_Fun.recommend_fun(movie.id)["id"][1:]
             for mov in collab_movies:
                 if mov not in collaborative_movies:
                     collaborative_movies.insert(len(collaborative_movies), mov)

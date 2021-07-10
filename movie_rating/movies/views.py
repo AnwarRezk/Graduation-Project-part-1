@@ -227,7 +227,7 @@ def movie_details(request, pk):
         # Getting recommendations
 
         if movie.is_english:
-            collab_movies = Recommendation_Fun.recommend_fun(pk)["id"]
+            collab_movies = Recommendation_Fun.recommend_fun(pk)["id"][1:]
             collaborative_movies = []
 
             for i in collab_movies:
