@@ -10,6 +10,7 @@ from movies.models import Movie
 
 # Create your views here.
 
+
 def LoginPage(request):
     if request.user.is_authenticated:
         return redirect('/')
@@ -23,15 +24,17 @@ def LoginPage(request):
             if user is not None:
                 login(request, user)
                 return redirect('notepage')
-            else: #something went wrong
+            else:  # something went wrong
                 context = {'username': username}
-                messages.warning(request,'Username/Password is incorrect')
+                messages.warning(request, 'Username/Password is incorrect')
 
         return render(request, 'users/login.html', context)
+
 
 @login_required
 def notepage(request):
     return render(request, 'users/notepage.html')
+
 
 def RegisterPage(request):
     if request.user.is_authenticated:
@@ -48,9 +51,11 @@ def RegisterPage(request):
         context = {'form': form}
         return render(request, 'users/register.html', context)
 
+
 def LogoutUser(request):
     logout(request)
     return redirect('login')
+
 
 @login_required
 def profile(request):
@@ -59,28 +64,30 @@ def profile(request):
         "username": current_user.username,
         "email": current_user.email
     }
-    
+
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=current_user)
-        p_form = ProfileUpdateForm(request.POST, request.FILES, instance=current_user.profile)
-        
+        p_form = ProfileUpdateForm(
+            request.POST, request.FILES, instance=current_user.profile)
+
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
             if request.POST.get('password'):
                 current_user.set_password(request.POST.get('password'))
                 current_user.save()
             p_form.save()
-            messages.success(request, f'Profile updated successfully!') #comment it for now
+            # comment it for now
+            messages.success(request, f'Profile updated successfully!')
             return redirect('profile')
-        
+
     else:
         u_form = UserUpdateForm(instance=current_user)
         p_form = ProfileUpdateForm(instance=current_user.profile)
-        
+
     user_ratings = current_user.user_rating_set.all()
     user_rated_movies = [rating.movie for rating in user_ratings]
     collaborative_movies = []
-    
+
     for movie in user_rated_movies:
         if movie.is_english:
             collab_movies = Recommendation_Fun.recommend_fun(movie.id)["id"]
@@ -88,24 +95,27 @@ def profile(request):
                 if mov not in collaborative_movies:
                     collaborative_movies.insert(len(collaborative_movies), mov)
         else:
-            collab_movies = ArabicRecommendation_Fun.get_movie_recommendation(movie.name_eg)["Title"]
+            collab_movies = ArabicRecommendation_Fun.get_movie_recommendation(movie.name_eg)[
+                "Title"]
             for mov in collab_movies:
                 if mov not in collaborative_movies:
                     collaborative_movies.insert(len(collaborative_movies), mov)
-    
+
     total_collaborative_movies = []
 
     for i in collaborative_movies:
         if type(i) is float:
             try:
                 mv = Movie.objects.get(id=i)
-                total_collaborative_movies.insert(len(total_collaborative_movies), mv)
+                total_collaborative_movies.insert(
+                    len(total_collaborative_movies), mv)
             except Movie.DoesNotExist:
                 pass
         else:
             try:
                 mv = Movie.objects.get(name_eg=i)
-                total_collaborative_movies.insert(len(total_collaborative_movies), mv)
+                total_collaborative_movies.insert(
+                    len(total_collaborative_movies), mv)
             except Movie.DoesNotExist:
                 pass
 
@@ -116,5 +126,5 @@ def profile(request):
         'user_ratings': user_ratings,
         'collaborative_movies': total_collaborative_movies
     }
-        
+
     return render(request, 'users/profile.html', context)

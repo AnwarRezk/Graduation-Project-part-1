@@ -35,80 +35,6 @@ Home
         {% csrf_token %}
 
         <div class="content-section ratings">
-            <legend class="border-bottom mb-4">Latest Movies - English</legend>
-            <div class="owl-carousel owl-theme">
-                {% for latest_movie in latest_movies_english %}
-                <div class="item">
-                    <div class="card">
-                        <div class="card-header"
-                            style="background: url({{ latest_movie.poster_url }}); background-size: cover;">
-                        </div>
-                        <div class="card-body">
-                            <a class="card-title" href="{% url 'movie-details' latest_movie.id %}"
-                                title="Show movie details">{{latest_movie.name_eg }}</a>
-                            <!-- <div class="star-ratings"><span class="rating-value">{{
-                                    latest_movie.final_rating|floatformat }}</span>/5</div> -->
-                            <div class="card-movie-info">
-                                <div class="movie-genres">
-                                    <label>Genres</label>
-                                    {% if latest_movie.genres_name_eg|length == 0 %}
-                                    <span>Genres not available</span>
-                                    {% else %}
-                                    <span>{{ latest_movie.genres_name_eg }}</span>
-                                    {% endif %}
-                                    <label>Rate</label>
-                                    <fieldset>
-                                        <input type="range" class="range_star" name="{{ latest_movie.name_eg }}" min="0"
-                                            max="5" step="0.5" value="0">
-                                        <output class="textInput"></output>
-                                    </fieldset>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-
-        <div class="content-section ratings">
-            <legend class="border-bottom mb-4">Latest Movies - Arabic</legend>
-            <div class="owl-carousel owl-theme">
-                {% for latest_movie in latest_movies_arabic %}
-                <div class="item">
-                    <div class="card">
-                        <div class="card-header"
-                            style="background: url({{ latest_movie.poster_url }}); background-size: cover;">
-                        </div>
-                        <div class="card-body">
-                            <a class="card-title" href="{% url 'movie-details' latest_movie.id %}"
-                                title="Show movie details">{{latest_movie.name_eg }} | {{latest_movie.name_ar}}</a>
-                            <!-- <div class="star-ratings"><span class="rating-value">{{
-                                    latest_movie.final_rating|floatformat }}</span>/5</div> -->
-                            <div class="card-movie-info">
-                                <div class="movie-genres">
-                                    <label>Genres</label>
-                                    {% if latest_movie.genres_name_eg|length == 0 %}
-                                    <span>Genres not available</span>
-                                    {% else %}
-                                    <span>{{ latest_movie.genres_name_eg }}</span>
-                                    {% endif %}
-                                    <label>Rate</label>
-                                    <fieldset>
-                                        <input type="range" class="range_star" name="{{ latest_movie.name_eg }}" min="0"
-                                            max="5" step="0.5" value="0">
-                                        <output class="textInput"></output>
-                                    </fieldset>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-
-        <div class="content-section ratings">
             <legend class="border-bottom mb-4">Popular Movies - English</legend>
             <!-- The posters will be dummy for now -->
             <div class="owl-carousel owl-theme">
@@ -121,8 +47,8 @@ Home
                         <div class="card-body">
                             <a class="card-title" href="{% url 'movie-details' popular_movie.id %}"
                                 title="Show movie details">{{popular_movie.name_eg }}</a>
-                            <!-- <div class="star-ratings"><span class="rating-value">{{
-                                    popular_movie.final_rating|floatformat }}</span>/5</div> -->
+                            <div class="star-ratings"><span class="rating-value">
+                                    {{ popular_movie.final_rating|floatformat }}</span>/5</div>
                             <div class="card-movie-info">
                                 <div class="movie-genres">
                                     <label>Genres</label>
@@ -159,8 +85,8 @@ Home
                         <div class="card-body">
                             <a class="card-title" href="{% url 'movie-details' popular_movie.id %}"
                                 title="Show movie details">{{popular_movie.name_eg }} | {{popular_movie.name_ar}}</a>
-                            <!-- <div class="star-ratings"><span class="rating-value">{{
-                                    popular_movie.final_rating|floatformat }}</span>/5</div> -->
+                            <div class="star-ratings"><span class="rating-value">
+                                    {{ popular_movie.final_rating|floatformat }}</span>/5</div>
                             <div class="card-movie-info">
                                 <div class="movie-genres">
                                     <label>Genres</label>
@@ -185,6 +111,80 @@ Home
         </div>
 
 
+        <div class="content-section ratings">
+            <legend class="border-bottom mb-4">Latest Movies - English</legend>
+            <div class="owl-carousel owl-theme">
+                {% for latest_movie in latest_movies_english %}
+                <div class="item">
+                    <div class="card">
+                        <div class="card-header"
+                            style="background: url({{ latest_movie.poster_url }}); background-size: cover;">
+                        </div>
+                        <div class="card-body">
+                            <a class="card-title" href="{% url 'movie-details' latest_movie.id %}"
+                                title="Show movie details">{{latest_movie.name_eg }}</a>
+                            <div class="star-ratings"><span class="rating-value">
+                                    {{ latest_movie.final_rating|floatformat }}</span>/5</div>
+                            <div class="card-movie-info">
+                                <div class="movie-genres">
+                                    <label>Genres</label>
+                                    {% if latest_movie.genres_name_eg|length == 0 %}
+                                    <span>Genres not available</span>
+                                    {% else %}
+                                    <span>{{ latest_movie.genres_name_eg }}</span>
+                                    {% endif %}
+                                    <label>Rate</label>
+                                    <fieldset>
+                                        <input type="range" class="range_star" name="{{ latest_movie.name_eg }}" min="0"
+                                            max="5" step="0.5" value="0">
+                                        <output class="textInput"></output>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="content-section ratings">
+            <legend class="border-bottom mb-4">Latest Movies - Arabic</legend>
+            <div class="owl-carousel owl-theme">
+                {% for latest_movie in latest_movies_arabic %}
+                <div class="item">
+                    <div class="card">
+                        <div class="card-header"
+                            style="background: url({{ latest_movie.poster_url }}); background-size: cover;">
+                        </div>
+                        <div class="card-body">
+                            <a class="card-title" href="{% url 'movie-details' latest_movie.id %}"
+                                title="Show movie details">{{latest_movie.name_eg }} | {{latest_movie.name_ar}}</a>
+                            <div class="star-ratings"><span class="rating-value">
+                                    {{ latest_movie.final_rating|floatformat }}</span>/5</div>
+                            <div class="card-movie-info">
+                                <div class="movie-genres">
+                                    <label>Genres</label>
+                                    {% if latest_movie.genres_name_eg|length == 0 %}
+                                    <span>Genres not available</span>
+                                    {% else %}
+                                    <span>{{ latest_movie.genres_name_eg }}</span>
+                                    {% endif %}
+                                    <label>Rate</label>
+                                    <fieldset>
+                                        <input type="range" class="range_star" name="{{ latest_movie.name_eg }}" min="0"
+                                            max="5" step="0.5" value="0">
+                                        <output class="textInput"></output>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
 
         <div class="content-section ratings">
             <legend class="border-bottom mb-4">User Rated Movies</legend>
@@ -202,8 +202,8 @@ Home
                             <a class="card-title" href="{% url 'movie-details' user_rating.movie.id %}"
                                 title="Show movie details">{{user_rating.movie.name_eg }} |
                                 {{user_rating.movie.name_ar}}</a>
-                            <!-- <div class="star-ratings"><span class="rating-value">{{
-                                    user_rating.movie.final_rating|floatformat }}</span>/5</div> -->
+                            <div class="star-ratings"><span class="rating-value">
+                                    {{ user_rating.movie.final_rating|floatformat }}</span>/5</div>
                             <div class="card-movie-info">
                                 <div class="movie-genres">
                                     <label>Genres</label>

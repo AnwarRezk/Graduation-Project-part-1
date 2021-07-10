@@ -7,11 +7,18 @@ Movie Details
 {% endblock %}
 
 {% block head %}
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
+    integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
+    crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
+    integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g=="
+    crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css"
+    integrity="sha512-OTcub78R3msOCtY3Tc6FzeDJ8N9qvQn1Ph49ou13xgA9VsH9+LRxoFU6EqLhW4+PKRfU+/HReXmSZXHEkpYoOA=="
+    crossorigin="anonymous" />
 <style>
-    html {
-        overflow: hidden;
-    }
-
     body {
         margin: 1rem;
     }
@@ -50,7 +57,12 @@ Movie Details
                 {% endif %}
 
             </div>
+
+            {% if movie.is_english %}
+            <h1 class="details-title">{{ movie.name_eg }}</h1>
+            {% else %}
             <h1 class="details-title">{{ movie.name_eg }} | {{ movie.name_ar }}</h1>
+            {% endif %}
 
             {% if movie.movieinfo.plot|length != 0 %}
             <p class="details-summary">{{ movie.movieinfo.plot }}</p>
@@ -69,9 +81,9 @@ Movie Details
 </div>
 
 <div class="content-section ratings">
-    <legend class="border-bottom mb-4">Your Rated Movies</legend>
+    <legend class="border-bottom mb-4">Similar to this movie</legend>
     {% if content_movies|length == 0 %}
-        <h4>No Recommended movies!</h4>
+    <h4>No Recommended movies!</h4>
     {% else %}
     <div class="owl-carousel owl-theme">
         {% for movie in content_movies %}
@@ -80,8 +92,42 @@ Movie Details
                 <div class="card-header" style="background: url({{ movie.poster_url }}); background-size: cover;">
                 </div>
                 <div class="card-body" style="height: 90px;">
-                    <a class="card-title" href="{% url 'movie-details' movie.id %}"
-                        title="Show movie details">{{ movie.name_eg }} | {{ movie.name_ar}}</a>
+                    {% if movie.is_english %}
+                    <a class="card-title" href="{% url 'movie-details' movie.id %}" title="Show movie details">
+                        {{ movie.name_eg }}</a>
+                    {% else %}
+                    <a class="card-title" href="{% url 'movie-details' movie.id %}" title="Show movie details">
+                        {{ movie.name_eg }} | {{ movie.name_ar }}</a>
+                    {% endif %}
+
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+
+<div class="content-section ratings">
+    <legend class="border-bottom mb-4">People liked this movie also liked</legend>
+    {% if collaborative_movies|length == 0 %}
+    <h4>No Recommended movies!</h4>
+    {% else %}
+    <div class="owl-carousel owl-theme">
+        {% for movie in collaborative_movies %}
+        <div class="item">
+            <div class="card">
+                <div class="card-header" style="background: url({{ movie.poster_url }}); background-size: cover;">
+                </div>
+                <div class="card-body" style="height: 90px;">
+                    {% if movie.is_english %}
+                    <a class="card-title" href="{% url 'movie-details' movie.id %}" title="Show movie details">
+                        {{ movie.name_eg }}</a>
+                    {% else %}
+                    <a class="card-title" href="{% url 'movie-details' movie.id %}" title="Show movie details">
+                        {{ movie.name_eg }} | {{ movie.name_ar }}</a>
+                    {% endif %}
 
 
                 </div>
@@ -94,7 +140,7 @@ Movie Details
 
 
 
-<script src="{% static 'movies/ajax_rate.js' %}"></script>
+
 <script>
     let i = document.querySelectorAll('.range_star'),
         o = document.querySelectorAll('.textInput');
@@ -127,4 +173,5 @@ Movie Details
         }
     })
 </script>
+<script src="{% static 'movies/ajax_rate.js' %}"></script>
 {% endblock %}

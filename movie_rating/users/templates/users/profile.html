@@ -2,103 +2,139 @@
 {% load crispy_forms_tags %}
 
 {% block title %}
-    Profile
+Profile
 {% endblock %}
 
 {% block head %}
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css" integrity="sha512-OTcub78R3msOCtY3Tc6FzeDJ8N9qvQn1Ph49ou13xgA9VsH9+LRxoFU6EqLhW4+PKRfU+/HReXmSZXHEkpYoOA==" crossorigin="anonymous" />
-    <style>
-        /* message boxes stuff */
-        .alert{
-            margin-bottom: -3rem;
-        }
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
+    integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
+    crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
+    integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g=="
+    crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css"
+    integrity="sha512-OTcub78R3msOCtY3Tc6FzeDJ8N9qvQn1Ph49ou13xgA9VsH9+LRxoFU6EqLhW4+PKRfU+/HReXmSZXHEkpYoOA=="
+    crossorigin="anonymous" />
+<style>
+    /* message boxes stuff */
+    .alert {
+        margin-bottom: -3rem;
+    }
 
-        .alert-dismissible{
-            margin-top: 30px;
-            margin-bottom: 5px;
-        }
-    </style>
+    .alert-dismissible {
+        margin-top: 30px;
+        margin-bottom: 5px;
+    }
+</style>
 {% endblock %}
 
 
 {% block content %}
 
-    <div class="content-section">
-        <div class="media">
-            <img class="rounded-circle account-img" src="{{ user.profile.image.url }}" alt="image">
-            <div class="media-body">
-                <h2 class="account-heading">{{ USER.username }}</h2>
-                <p class="text-secondary">{{ USER.email }}</p>
-            </div>
+<div class="content-section">
+    <div class="media">
+        <img class="rounded-circle account-img" src="{{ user.profile.image.url }}" alt="image">
+        <div class="media-body">
+            <h2 class="account-heading">{{ USER.username }}</h2>
+            <p class="text-secondary">{{ USER.email }}</p>
         </div>
-        <form method="POST" enctype="multipart/form-data" onsubmit ="return validateForm()">
-            {% csrf_token %}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Profile</legend>
-                {{ u_form|crispy }}
-                <span class="password">Password</span>
-                <br>
-                <input type = "password" name="password" id = "pswd1" value = "">
-                <span id = "message1" style="color:red"> </span> <br><br>
-                {{ p_form|crispy }}
-            </fieldset>
-            <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">Update</button>
-            </div>
-        </form>
     </div>
-
-        <div class = "content-section ratings" >
-            <legend class="border-bottom mb-4">Your Rated Movies</legend>
-            {% if user_ratings|length == 0 %}
-            <h4>No Rated Movies Yet!</h4>
-            {% else %}
-            <div class="owl-carousel owl-theme">
-                {% for user_rating in user_ratings %}
-                <div class="item">
-                    <div class="card">
-                        <div class="card-header"
-                            style="background: url({{ user_rating.movie.poster_url }}); background-size: cover;">
-                        </div>
-                        <div class="card-body" style="height: 90px;">
-                            <a class="card-title" href="{% url 'movie-details' user_rating.movie.id %}"
-                                title="Show movie details">{{user_rating.movie.name_eg }} | {{user_rating.movie.name_ar}}</a>
-
-                        
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-            {% endif %}
+    <form method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Profile</legend>
+            {{ u_form|crispy }}
+            <span class="password">Password</span>
+            <br>
+            <input type="password" name="password" id="pswd1" value="">
+            <span id="message1" style="color:red"> </span> <br><br>
+            {{ p_form|crispy }}
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-outline-info" type="submit">Update</button>
         </div>
+    </form>
+</div>
 
-    <!-- Script for triggering the flickity package -->
-    <script>
-        $('.owl-carousel').owlCarousel({
-            loop:false,
-            margin:10,
-            responsiveClass:true,
-            responsive:{
-                0:{
-                    items:1,
-                    nav:true,
-                    pagination:false
-                },
-                500:{
-                    items:2,
-                    nav:false
-                },
-                1000:{
-                    items:4,
-                    nav:true,
-                }
+<div class="content-section ratings">
+    <legend class="border-bottom mb-4">Your Rated Movies</legend>
+    {% if user_ratings|length == 0 %}
+    <h4>No Rated Movies Yet!</h4>
+    {% else %}
+    <div class="owl-carousel owl-theme">
+        {% for user_rating in user_ratings %}
+        <div class="item">
+            <div class="card">
+                <div class="card-header"
+                    style="background: url({{ user_rating.movie.poster_url }}); background-size: cover;">
+                </div>
+                <div class="card-body" style="height: 90px;">
+                    {% if user_rating.movie.is_english %}
+                    <a class="card-title" href="{% url 'movie-details' user_rating.movie.id %}"
+                        title="Show movie details">{{user_rating.movie.name_eg }}</a>
+                    {% else %}
+                    <a class="card-title" href="{% url 'movie-details' user_rating.movie.id %}"
+                        title="Show movie details">{{user_rating.movie.name_eg }} | {{user_rating.movie.name_ar}}</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+
+<div class="content-section ratings">
+    <legend class="border-bottom mb-4">People liked your rated movies also liked</legend>
+    {% if collaborative_movies|length == 0 %}
+    <h4>No Similar Movies!</h4>
+    {% else %}
+    <div class="owl-carousel owl-theme">
+        {% for movie in collaborative_movies %}
+        <div class="item">
+            <div class="card">
+                <div class="card-header" style="background: url({{ movie.poster_url }}); background-size: cover;">
+                </div>
+                <div class="card-body" style="height: 90px;">
+                    {% if movie.is_english %}
+                    <a class="card-title" href="{% url 'movie-details' movie.id %}" title="Show movie details">
+                        {{ movie.name_eg }}</a>
+                    {% else %}
+                    <a class="card-title" href="{% url 'movie-details' movie.id %}" title="Show movie details">
+                        {{ movie.name_eg }} | {{ movie.name_ar }}</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+
+<!-- Script for triggering the flickity package -->
+<script>
+    $('.owl-carousel').owlCarousel({
+        loop: false,
+        margin: 10,
+        responsiveClass: true,
+        responsive: {
+            0: {
+                items: 1,
+                nav: true,
+                pagination: false
+            },
+            500: {
+                items: 2,
+                nav: false
+            },
+            1000: {
+                items: 4,
+                nav: true,
             }
-        })
-    </script>
+        }
+    })
+</script>
 
 {% endblock %}
