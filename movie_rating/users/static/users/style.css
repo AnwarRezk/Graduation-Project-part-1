@@ -239,7 +239,7 @@ nav{
 .details-title{
     font-size: 2.5em;
     margin: 1em 0;
-    text-transform: uppercase;
+    text-transform: capitalize;
     color: #b54c88;
 }
 
