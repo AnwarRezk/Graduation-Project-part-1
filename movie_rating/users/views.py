@@ -104,16 +104,16 @@ def profile(request):
     total_collaborative_movies = []
 
     for i in collaborative_movies:
-        if type(i) is float:
+        if type(i) is str:
             try:
-                mv = Movie.objects.get(id=i)
+                mv = Movie.objects.get(name_eg=i)
                 total_collaborative_movies.insert(
                     len(total_collaborative_movies), mv)
             except Movie.DoesNotExist:
                 pass
         else:
             try:
-                mv = Movie.objects.get(name_eg=i)
+                mv = Movie.objects.get(id=i)
                 total_collaborative_movies.insert(
                     len(total_collaborative_movies), mv)
             except Movie.DoesNotExist:
