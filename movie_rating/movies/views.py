@@ -227,13 +227,14 @@ def movie_details(request, pk):
         # Getting recommendations
 
         if movie.is_english:
-            collab_movies = Recommendation_Fun.recommend_fun(pk)["id"][1:]
+            collab_movies = Recommendation_Fun.recommend_fun(pk)["id"]
             collaborative_movies = []
 
             for i in collab_movies:
                 try:
                     mv = Movie.objects.get(id=i)
-                    collaborative_movies.insert(len(collaborative_movies), mv)
+                    if mv != movie:
+                        collaborative_movies.insert(len(collaborative_movies), mv)
                 except Movie.DoesNotExist:
                     pass
 
@@ -243,7 +244,8 @@ def movie_details(request, pk):
             for i in cont_movies:
                 try:
                     mv = Movie.objects.get(id=i)
-                    content_movies.insert(len(content_movies), mv)
+                    if mv != movie:
+                        content_movies.insert(len(content_movies), mv)
                 except Movie.DoesNotExist:
                     pass
         else:
@@ -254,7 +256,8 @@ def movie_details(request, pk):
             for title in collab_movies:
                 try:
                     mv = Movie.objects.get(name_eg=title)
-                    collaborative_movies.insert(len(collaborative_movies), mv)
+                    if mv != movie:
+                        collaborative_movies.insert(len(collaborative_movies), mv)
                 except Movie.DoesNotExist:
                     pass
 
@@ -264,7 +267,8 @@ def movie_details(request, pk):
             for i in cont_movies:
                 try:
                     mv = Movie.objects.get(id=i)
-                    content_movies.insert(len(content_movies), mv)
+                    if mv != movie:
+                        content_movies.insert(len(content_movies), mv)
                 except Movie.DoesNotExist:
                     pass
 
