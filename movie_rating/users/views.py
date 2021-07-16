@@ -86,39 +86,46 @@ def profile(request):
 
     user_ratings = current_user.user_rating_set.all()
     user_rated_movies = [rating.movie for rating in user_ratings]
-    collaborative_movies = []
+    collaborative_movies = {}
 
     for movie in user_rated_movies:
         if movie.is_english:
             collab_movies = Recommendation_Fun.recommend_fun(movie.id)["id"][1:]
             for mov in collab_movies:
                 if mov not in collaborative_movies:
-                    collaborative_movies.insert(len(collaborative_movies), mov)
+                    collaborative_movies[mov] = 1
+                else:
+                    collaborative_movies[mov] += 1
         else:
             collab_movies = ArabicRecommendation_Fun.get_movie_recommendation(movie.name_eg)[
                 "Title"]
             for mov in collab_movies:
                 if mov not in collaborative_movies:
-                    collaborative_movies.insert(len(collaborative_movies), mov)
+                    collaborative_movies[mov] = 1
+                else:
+                    collaborative_movies[mov] += 1
 
-    total_collaborative_movies = []
+    total_collaborative_movies = {}
 
-    for i in collaborative_movies:
+    for i, v in collaborative_movies.items():
         if type(i) is str:
             try:
                 mv = Movie.objects.get(name_eg=i)
-                total_collaborative_movies.insert(
-                    len(total_collaborative_movies), mv)
+                if mv not in user_rated_movies:
+                    total_collaborative_movies[mv] = v
             except Movie.DoesNotExist:
                 pass
         else:
             try:
                 mv = Movie.objects.get(id=i)
-                total_collaborative_movies.insert(
-                    len(total_collaborative_movies), mv)
+                if mv not in user_rated_movies:
+                    total_collaborative_movies[mv] = v
             except Movie.DoesNotExist:
                 pass
 
+    total_collaborative_movies = sorted(total_collaborative_movies.items(), key = lambda kv: (kv[1], kv[0].final_rating))[::-1][:20]
+    total_collaborative_movies = [tup[0] for tup in total_collaborative_movies]
+    
     context = {
         'USER': backup_user,
         'u_form': u_form,
