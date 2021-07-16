@@ -56,6 +56,9 @@ Movie Details
                 <span>No information about actors available</span>
                 {% endif %}
 
+                <span>
+                    {{ movie.final_rating|floatformat }} / 5</span>
+
             </div>
 
             {% if movie.is_english %}
@@ -64,8 +67,7 @@ Movie Details
             <h1 class="details-title">{{ movie.name_eg }} | {{ movie.name_ar }}</h1>
             {% endif %}
 
-            <div class="star-ratings"><span class="rating-value">
-                    {{ movie.final_rating|floatformat }}</span>/5</div>
+
 
             {% if movie.movieinfo.plot|length != 0 %}
             <p class="details-summary">{{ movie.movieinfo.plot }}</p>
